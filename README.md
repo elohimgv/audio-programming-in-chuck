@@ -1,1 +1,3 @@
-# audio-programming-in-chuck
+# Introduction to Real Time Audio Programming in Chuck
+
+I began this course in [Coursera](https://www.coursera.org) some year ago. I decided to delete all my files and rebuild my exercises one more time from scratch. Here you are...
