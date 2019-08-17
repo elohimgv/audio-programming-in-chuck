@@ -26,7 +26,7 @@ Here we have primitive data types like: floating point, integers, strings, boole
 #### Control structures
 Like in other languages:
 Loops
-`
+```
 for (0 => int i; i < 0; i++) {
    some code goes here
 }
@@ -36,16 +36,16 @@ while (i < 3) {
    some code goes here   
    i++;
 }
-`
+```
 The difference is the assign operator, instead of *=* we have *=>* and the order in the syntax how to assign a value.
 Classical example
-`
+```
 int a = 0;
-`
+```
 Chuck
-`
+```
 0 => int a;
-`
+```
 
 
 
