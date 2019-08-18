@@ -92,11 +92,10 @@ Std.mtof(float value) // Converts MIDI note number to frequency (Hz) - output fl
 Std.ftom(float value) // Converts frequency (Hz) to MIDI note number space - output float
 ```
 Ohters:
-* To obtain a absolute values. If is positive will remain positive and if is negative will be positive.
+* To obtain absolute values. If is positive will remain positive and if is negative will be positive.
 ```
 Std.abs(int absolute value) // Returns absolute value of integer number - output integer
 ```
-* 
 ```
 Std.fabs(float absolute value) // Returns absolute value of floating number - output float
 ```
