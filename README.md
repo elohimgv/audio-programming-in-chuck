@@ -82,5 +82,25 @@ Thise are the keywords to make basic sounds with waveforms in Chuck. To learn a 
 
 Finally checkout my [artwork](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-1/assignment_1.ck) :notes:
 
+### Week 2
+This week was focused on utility functions and arrays. First, we talk about MIDI; MIDI means *Musical Instrument Digital Interface* is a standard technologie that describe a protocol, a digital interface and connectors that allow several electronic musical instruments, computers and other devices related it connect and communication between it. MIDI notes goes throug 0-127, to build melodies we need transform MIDI values to frequencies to Chuck play the song. 
+
+#### Utility functions
+How say above, we need interchange MIDI to frquency and to do that have the utility function:
+```
+Std.mtof(float value) // Converts MIDI note number to frequency (Hz) - output float
+Std.ftom(float value) // Converts frequency (Hz) to MIDI note number space - output float
+```
+Ohters:
+* To obtain a absolute values. If is positive will remain positive and if is negative will be positive.
+```
+Std.abs(int absolute value) // Returns absolute value of integer number - output integer
+```
+* 
+```
+Std.fabs(float absolute value) // Returns absolute value of floating number - output float
+```
+
+
 
 
