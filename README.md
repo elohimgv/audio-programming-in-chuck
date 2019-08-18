@@ -78,7 +78,7 @@ Sawtooth wave
 ```
 SawOsc 
 ```
-Thise are the keywords to make basic sounds with waveforms. To learn a little a bit more visit [Wikipedia](https://en.wikipedia.org/wiki/Waveform).
+Thise are the keywords to make basic sounds with waveforms in Chuck. To learn a little a bit more visit [Wikipedia](https://en.wikipedia.org/wiki/Waveform).
 
 Finally checkout my [artwork](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-1/assignment_1.ck) :notes:
 
