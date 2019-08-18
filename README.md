@@ -27,7 +27,7 @@ Here we have primitive data types like: floating point, integers, strings, boole
 Like in other languages:
 Loops
 ```
-for (0 => int i; i < 0; i++) {
+for (0 => int i; i < 3; i++) {
    some code goes here
 }
 
@@ -38,14 +38,49 @@ while (i < 3) {
 }
 ```
 The difference is the assign operator, instead of *=* we have *=>* and the order in the syntax how to assign a value.
-Classical example
+Classical example.
 ```
 int a = 0;
 ```
-Chuck
+Chuck.
 ```
 0 => int a;
 ```
+Statements
+```
+if (true) {
+   code goes here
+}
+```
+```
+if (true) {
+   code goes here
+} else {
+   code goes here
+}
+```
+Pretty the same to other programming languages.
+
+#### Waveforms
+Sine wave 
+```
+SinOsc 
+```
+Square wave
+```
+SqrOsc 
+```
+Triangle wave
+```
+TriOsc 
+```
+Sawtooth wave
+```
+SawOsc 
+```
+Thise are the keywords to make basic sounds with waveforms. To learn a little a bit more visit [Wikipedia](https://en.wikipedia.org/wiki/Waveform).
+
+Finally checkout my [artwork](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-1/assignment_1.ck) :notes:
 
 
 
