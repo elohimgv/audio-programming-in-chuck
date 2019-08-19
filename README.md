@@ -94,9 +94,9 @@ Std.ftom(float value) // Converts frequency (Hz) to MIDI note number space - out
 Others:
 
 ```chuck
-Std.abs(int absolute value) // Returns absolute value of integer number - output integer
+Std.abs(int value) // Returns absolute value of integer number - output integer
 
-Std.fabs(float absolute value) // Returns absolute value of floating number - output float
+Std.fabs(float value) // Returns absolute value of floating number - output float
 
 Std.sgn(float value) // Computes sign of the input - output float 
 
@@ -121,15 +121,112 @@ An interesting tool for have variations (different values) in our compositions i
 ```chuck
 Math.random(int value) // Generates random integer between 0 and Math.RANDOM_MAX - output int
 
-Math.random2(int min int max) // Generates random integer in the range [min, max] - output int
+Math.random2(int min, int max) // Generates random integer in the range [min, max] - output int
 
 Math.randomf(float value) // Generates random floating point number in range [0, 1] - output float
 
-Math.random2f(float min float max) // Generates random floating point number int the range [min, max] - output float
+Math.random2f(float min, float max) // Generates random floating point number int the range [min, max] - output float
 ```
 Every time I run my program I have different values with random, what happen if I want the same series of number each time? The answer is:
 ```chuck
 Math.srandom() // Ensure tha sequence of random numbers would be exactly the same across different executions of the same program.
 ```
+#### More utility functions
+```chuck
+Math.hypot(float x, float y) // Computes the ecuclidean distance of the orthogonal vectors (x, 0) and (0, y) - output float
 
+Math.pow(float x, float y) // Computes x taken to the y-th power - output float
+
+Math.sqrt(float x) // Computes the nonnegative square root of x - output float
+
+Math.exp(float x) // Computes e^x, the base-e exponential of x - output float
+
+Math.log(float x) // Computes the natural logarithm of x - output float
+
+Math.log2(float x) // Computes the logarithm of x to base 2 - output float
+
+Math.log10(float x) // Computes the logarith of x to base 10 - output float
+
+Math.floor(float x) // Round to largest integral value not greater than x -output float
+
+Math.ceil(float x) // Round to smallest integral value not less than x - output float
+
+Math.round(float x) // Round to nearest integral value - output float
+
+Math.trunc(float x) // Round to largest integral value no greater in magnitud than x - output float
+
+Math.fmod(float x) // Computes the reminder of x / y - ouput float
+
+Math.min(float x) // Choose lesser of two values - ouput float
+
+Math.max(float x, float y) // Choose greater of two values - output float
+
+Math.nextpow2(float x) // Computes the integral smallest power of 2 greater the the value of x - output int
+```
+#### Audio panning
+Pannig give me the opportunity to work with audio channel. For example on computer we have two speakers: one left and one right. How can manipulate it? well, Chuck counts with distinct way to do that. One way is:
+```chuck
+SinOsc => dac.left;
+SinOsc => dac.right;
+```
+This ensure sound in both sides. At this point we can control when, what, how the side is mute, on, off, amplitude, note is performed. But if we want more channels, (e.g. multi channels devices).
+
+```chuck
+SqrOsc s => dac.chan(0);
+SqrOsc t => dac.chan(1);
+SqrOsc u => dac.chan(2);
+SqrOsc v => dac.chan(3);
+```
+The third way is similar to *dac.left* and *dac.right*, but with the keyword *Pan2*. Here is an example:
+
+```chuck
+// Sound chain
+Noise n => Pan2 p => dac;
+
+// initialize pan position value
+1.0 => float panPosition; 
+
+// loop
+while (panPosition > -1.0)
+{
+    panPosition => p.pan; // pan value
+    <<< panPosition >>>;
+    panPosition - .01 => panPosition; // decrement
+    .01::second => now; // advance time
+}
+```
+I can change the value to 1.0 to -1.0 to go through one side to other.
+
+#### Array
+One useful topic in computer science are arrays; are dinamic way to store data memory in blocks. Also are a modular and consistent to do. It allow a shorter and more efficient program. Now and example in chuck:     
+
+```chuck
+// sound chain
+SqrOsc s => dac;
+
+// array declaration
+[54, 56, 62, 54, 48, 50, 52] @=> int A[];
+
+// A.cap() is max number of element in A[]
+<<< A.cap() >>>;
+
+// loop
+for (0 => int i; i < A.cap(); i++)
+{
+    <<< i, A[i] >>>; // print index and value
+    Std.mtof(A[i]) => s.freq;
+    .5::second => now; // advance time
+}
+```
+Look the differences... To declare an array in processing (a language for learning how to code within the context of the visual arts) has this way:
+```processing
+int[] A = {54, 56, 62, 54, 48, 50, 52}; 
+```
+Now in Chuck:
+```chuck
+[54, 56, 62, 54, 48, 50, 52] @=> int A[];
+```
+Do you remember what I said above with sign operator? It allocate the values on left side and the right side contain the data type and variable name, oh! one more thing did you see how look the sign operator? Thats right has other element *@* not for email, it means that list is dynamically, it changes over time.
+
+ 
 
