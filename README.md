@@ -92,14 +92,39 @@ Std.mtof(float value) // Converts MIDI note number to frequency (Hz) - output fl
 Std.ftom(float value) // Converts frequency (Hz) to MIDI note number space - output float
 ```
 Ohters:
-* To obtain absolute values. If is positive will remain positive and if is negative will be positive.
 ```
 Std.abs(int absolute value) // Returns absolute value of integer number - output integer
 ```
 ```
 Std.fabs(float absolute value) // Returns absolute value of floating number - output float
 ```
-
+```
+Std.sgn(float value) // Computes sign of the input - output float 
+```
+```
+Std.powtodb(float value) // Converts signal power ratio to decibels (dB) - output float
+```
+```
+Std.rmstodb(float value) // Converts linear amplitude to decibels (dB) - output float
+```
+```
+Std.dbtopow(float value) // Converts decibels (dB) to signal power ratio - output float
+```
+```
+Std.dbtorms(float value) // Converts decibels (dB) to linear amplitude - output float
+```
+```
+Std.atoi(string value) // Converts ascii (string) to integer (int) - output int
+```
+```
+Std.atof(string value) // Converts ascii (string) to floating point value (float) - output float
+```
+```
+Std.itoa(int value) // Converts integer (int) to ascii (string) - output string
+```
+```
+Std.ftoa(float value) // Converts floating point value (float) to ascii (string)
+```
 
 
 
