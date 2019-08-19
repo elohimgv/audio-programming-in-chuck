@@ -183,16 +183,16 @@ The third way is similar to *dac.left* and *dac.right*, but with the keyword *Pa
 // Sound chain
 Noise n => Pan2 p => dac;
 
-// initialize pan position value
+// Initialize pan position value
 1.0 => float panPosition; 
 
-// loop
+// Loop
 while (panPosition > -1.0)
 {
-    panPosition => p.pan; // pan value
+    panPosition => p.pan; // Pan value
     <<< panPosition >>>;
-    panPosition - .01 => panPosition; // decrement
-    .01::second => now; // advance time
+    panPosition - .01 => panPosition; // Decrement
+    .01::second => now; // Advance time
 }
 ```
 I can change the value to 1.0 to -1.0 to go through one side to other.
@@ -201,21 +201,21 @@ I can change the value to 1.0 to -1.0 to go through one side to other.
 One useful topic in computer science are arrays; are dinamic way to store data memory in blocks. Also are a modular and consistent to do. It allow a shorter and more efficient program. Now and example in chuck:     
 
 ```chuck
-// sound chain
+// Sound chain
 SqrOsc s => dac;
 
-// array declaration
+// Array declaration
 [54, 56, 62, 54, 48, 50, 52] @=> int A[];
 
 // A.cap() is max number of element in A[]
 <<< A.cap() >>>;
 
-// loop
+// Loop
 for (0 => int i; i < A.cap(); i++)
 {
-    <<< i, A[i] >>>; // print index and value
+    <<< i, A[i] >>>; // Print index and value
     Std.mtof(A[i]) => s.freq;
-    .5::second => now; // advance time
+    .5::second => now; // Advance time
 }
 ```
 Look the differences... To declare an array in processing (a language for learning how to code within the context of the visual arts) has this way:
@@ -228,5 +228,7 @@ Now in Chuck:
 ```
 Do you remember what I said above with sign operator? It allocate the values on left side and the right side contain the data type and variable name, oh! one more thing did you see how look the sign operator? Thats right has other element *@* not for email, it means that list is dynamically, it changes over time.
 
+Finally *.cap()* it means the capacity of the array, like *.length* in processing... goes through the array and access the values.
+ 
  
 
