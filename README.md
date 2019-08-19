@@ -26,7 +26,8 @@ Here we have primitive data types like: floating point, integers, strings, boole
 #### Control structures
 Like in other languages:
 Loops
-```for (0 => int i; i < 3; i++) {
+```chuck
+for (0 => int i; i < 3; i++) {
    some code goes here
 }
 
@@ -38,17 +39,21 @@ while (i < 3) {
 ```
 The difference is the assign operator, instead of *=* we have *=>* and the order in the syntax how to assign a value.
 Classical example.
-```int a = 0;
+```
+int a = 0;
 ```
 Chuck.
-```0 => int a;
+```
+0 => int a;
 ```
 Statements
-```if (true) {
+```
+if (true) {
    code goes here
 }
 ```
-```if (true) {
+```
+if (true) {
    code goes here
 } else {
    code goes here
@@ -61,13 +66,16 @@ Sine wave
 ```SinOsc 
 ```
 Square wave
-```SqrOsc 
+```
+SqrOsc 
 ```
 Triangle wave
-```TriOsc 
+```
+TriOsc 
 ```
 Sawtooth wave
-```SawOsc 
+```
+SawOsc 
 ```
 Thise are the keywords to make basic sounds with waveforms in Chuck. To learn a little a bit more visit [Wikipedia](https://en.wikipedia.org/wiki/Waveform).
 
@@ -78,32 +86,44 @@ This week was focused on utility functions and arrays. First, we talk about MIDI
 
 #### Utility functions
 How say above, we need interchange MIDI to frquency and to do that have the utility function:
-```Std.mtof(float value) // Converts MIDI note number to frequency (Hz) - output float
+```
+Std.mtof(float value) // Converts MIDI note number to frequency (Hz) - output float
 Std.ftom(float value) // Converts frequency (Hz) to MIDI note number space - output float
 ```
 Ohters:
 
-```Std.abs(int absolute value) // Returns absolute value of integer number - output integer
 ```
-```Std.fabs(float absolute value) // Returns absolute value of floating number - output float
+Std.abs(int absolute value) // Returns absolute value of integer number - output integer
 ```
-```Std.sgn(float value) // Computes sign of the input - output float 
 ```
-```Std.powtodb(float value) // Converts signal power ratio to decibels (dB) - output float
+Std.fabs(float absolute value) // Returns absolute value of floating number - output float
 ```
-```Std.rmstodb(float value) // Converts linear amplitude to decibels (dB) - output float
 ```
-```Std.dbtopow(float value) // Converts decibels (dB) to signal power ratio - output float
+Std.sgn(float value) // Computes sign of the input - output float 
 ```
-```Std.dbtorms(float value) // Converts decibels (dB) to linear amplitude - output float
 ```
-```Std.atoi(string value) // Converts ascii (string) to integer (int) - output int
+Std.powtodb(float value) // Converts signal power ratio to decibels (dB) - output float
 ```
-```Std.atof(string value) // Converts ascii (string) to floating point value (float) - output float
 ```
-```Std.itoa(int value) // Converts integer (int) to ascii (string) - output string
+Std.rmstodb(float value) // Converts linear amplitude to decibels (dB) - output float
 ```
-```Std.ftoa(float value) // Converts floating point value (float) to ascii (string)
+```
+Std.dbtopow(float value) // Converts decibels (dB) to signal power ratio - output float
+```
+```
+Std.dbtorms(float value) // Converts decibels (dB) to linear amplitude - output float
+```
+```
+Std.atoi(string value) // Converts ascii (string) to integer (int) - output int
+```
+```
+Std.atof(string value) // Converts ascii (string) to floating point value (float) - output float
+```
+```
+Std.itoa(int value) // Converts integer (int) to ascii (string) - output string
+```
+```
+Std.ftoa(float value) // Converts floating point value (float) to ascii (string)
 ```
 
 
