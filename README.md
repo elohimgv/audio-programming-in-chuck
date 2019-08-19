@@ -88,9 +88,10 @@ This week was focused on utility functions and arrays. First, we talk about MIDI
 How say above, we need interchange MIDI to frquency and to do that have the utility function:
 ```chuck
 Std.mtof(float value) // Converts MIDI note number to frequency (Hz) - output float
+
 Std.ftom(float value) // Converts frequency (Hz) to MIDI note number space - output float
 ```
-Ohters:
+Others:
 
 ```chuck
 Std.abs(int absolute value) // Returns absolute value of integer number - output integer
@@ -115,6 +116,20 @@ Std.itoa(int value) // Converts integer (int) to ascii (string) - output string
 
 Std.ftoa(float value) // Converts floating point value (float) to ascii (string)
 ```
+#### Random numbers
+An interesting tool for have variations (different values) in our compositions is random function. That provide volumen up and down or note change among others. For this we have Math library.
+```chuck
+Math.random(int value) // Generates random integer between 0 and Math.RANDOM_MAX - output int
 
+Math.random2(int min int max) // Generates random integer in the range [min, max] - output int
+
+Math.randomf(float value) // Generates random floating point number in range [0, 1] - output float
+
+Math.random2f(float min float max) // Generates random floating point number int the range [min, max] - output float
+```
+Every time I run my program I have different values with random, what happen if I want the same series of number each time? The answer is:
+```chuck
+Math.srandom() // Ensure tha sequence of random numbers would be exactly the same across different executions of the same program.
+```
 
 
