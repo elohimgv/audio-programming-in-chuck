@@ -39,20 +39,19 @@ while (i < 3) {
 ```
 The difference is the assign operator, instead of *=* we have *=>* and the order in the syntax how to assign a value.
 Classical example.
-```
+```chuck
 int a = 0;
 ```
 Chuck.
-```
+```chuck
 0 => int a;
 ```
 Statements
-```
+```chuck
 if (true) {
    code goes here
 }
-```
-```
+
 if (true) {
    code goes here
 } else {
@@ -63,18 +62,19 @@ Pretty the same to other programming languages.
 
 #### Waveforms
 Sine wave 
-```SinOsc 
+```chuck
+SinOsc 
 ```
 Square wave
-```
+```chuck
 SqrOsc 
 ```
 Triangle wave
-```
+```chuck
 TriOsc 
 ```
 Sawtooth wave
-```
+```chuck
 SawOsc 
 ```
 Thise are the keywords to make basic sounds with waveforms in Chuck. To learn a little a bit more visit [Wikipedia](https://en.wikipedia.org/wiki/Waveform).
@@ -86,43 +86,33 @@ This week was focused on utility functions and arrays. First, we talk about MIDI
 
 #### Utility functions
 How say above, we need interchange MIDI to frquency and to do that have the utility function:
-```
+```chuck
 Std.mtof(float value) // Converts MIDI note number to frequency (Hz) - output float
 Std.ftom(float value) // Converts frequency (Hz) to MIDI note number space - output float
 ```
 Ohters:
 
-```
+```chuck
 Std.abs(int absolute value) // Returns absolute value of integer number - output integer
-```
-```
+
 Std.fabs(float absolute value) // Returns absolute value of floating number - output float
-```
-```
+
 Std.sgn(float value) // Computes sign of the input - output float 
-```
-```
+
 Std.powtodb(float value) // Converts signal power ratio to decibels (dB) - output float
-```
-```
+
 Std.rmstodb(float value) // Converts linear amplitude to decibels (dB) - output float
-```
-```
+
 Std.dbtopow(float value) // Converts decibels (dB) to signal power ratio - output float
-```
-```
+
 Std.dbtorms(float value) // Converts decibels (dB) to linear amplitude - output float
-```
-```
+
 Std.atoi(string value) // Converts ascii (string) to integer (int) - output int
-```
-```
+
 Std.atof(string value) // Converts ascii (string) to floating point value (float) - output float
-```
-```
+
 Std.itoa(int value) // Converts integer (int) to ascii (string) - output string
-```
-```
+
 Std.ftoa(float value) // Converts floating point value (float) to ascii (string)
 ```
 
