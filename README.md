@@ -166,8 +166,8 @@ Math.nextpow2(float x) // Computes the integral smallest power of 2 greater the 
 #### Audio panning
 Pannig give me the opportunity to work with audio channel. For example on computer we have two speakers: one left and one right. How can manipulate it? well, Chuck counts with distinct way to do that. One way is:
 ```chuck
-SinOsc => dac.left;
-SinOsc => dac.right;
+SinOsc s => dac.left;
+SinOsc t => dac.right;
 ```
 This ensure sound in both sides. At this point we can control when, what, how the side is mute, on, off, amplitude, note is performed. But if we want more channels, (e.g. multi channels devices).
 
