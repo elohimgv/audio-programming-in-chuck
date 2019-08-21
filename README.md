@@ -229,6 +229,8 @@ Now in Chuck:
 Do you remember what I said above with sign operator? It allocate the values on left side and the right side contain the data type and variable name, oh! one more thing did you see how look the sign operator? Thats right has other element *@* not for email, it means that list is dynamically, it changes over time.
 
 Finally *.cap()* it means the capacity of the array, like *.length* in processing... goes through the array and access the values.
+
+Checkout my [artwork](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-2/assignment_2.ck)
  
  
 
