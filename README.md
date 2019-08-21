@@ -21,7 +21,7 @@ I use Chuck language to program and core features are:
 Now I am going to talk about more technical concepts like data types, control structures and waveforms that is a topic of sounds physics but implement in Chuck. 
 
 #### Data types
-Here we have primitive data types like: floating point, integers, strings, boolean values like in other classic language. The interesting point here is *time* and *dur* data types; they allow to work wiht **time**. *Time* is just a point in **time** and *dur* is the length of time; for example the duration of my composition. Here there´s special keyword *now* to read or init the sequences of pices of coda that must be executed and modify or manipulate the count of time inside of Chuk, because we can show on concole in milliseconds, seconds, minutes, hours etc.
+Here we have primitive data types like: floating point, integers, strings, boolean values like in other classic language. The interesting point here is ```time``` and ```dur``` data types; they allow to work wiht **time**. ```time``` is just a point in **time** and ```dur``` is the length of time; for example the duration of my composition. Here there´s special keyword ```now``` to read or init the sequences of pices of coda that must be executed and modify or manipulate the count of time inside of Chuk, because we can show on concole in milliseconds, seconds, minutes, hours etc.
 
 #### Control structures
 Like in other languages:
@@ -37,7 +37,7 @@ while (i < 3) {
    i++;
 }
 ```
-The difference is the assign operator, instead of *=* we have *=>* and the order in the syntax how to assign a value.
+The difference is the assign operator, instead of ```=``` we have ```=>``` and the order in the syntax how to assign a value.
 Classical example.
 ```chuck
 int a = 0;
@@ -177,7 +177,7 @@ SqrOsc t => dac.chan(1);
 SqrOsc u => dac.chan(2);
 SqrOsc v => dac.chan(3);
 ```
-The third way is similar to *dac.left* and *dac.right*, but with the keyword *Pan2*. Here is an example:
+The third way is similar to ```dac.left``` and ```dac.right```, but with the keyword ```Pan2```. Here is an example:
 
 ```chuck
 // Sound chain
@@ -195,7 +195,7 @@ while (panPosition > -1.0)
     .01::second => now; // Advance time
 }
 ```
-I can change the value to 1.0 to -1.0 to go through one side to other.
+I can change the value to ```1.0``` to ```-1.0``` to go through one side to other.
 
 #### Array
 One useful topic in computer science are arrays; are dinamic way to store data memory in blocks. Also are a modular and consistent to do. It allow a shorter and more efficient program. Now and example in chuck:     
@@ -226,9 +226,9 @@ Now in Chuck:
 ```chuck
 [54, 56, 62, 54, 48, 50, 52] @=> int A[];
 ```
-Do you remember what I said above with sign operator? It allocate the values on left side and the right side contain the data type and variable name, oh! one more thing did you see how look the sign operator? Thats right has other element *@* not for email, it means that list is dynamically, it changes over time.
+Do you remember what I said above with sign operator? It allocate the values on left side and the right side contain the data type and variable name, oh! one more thing did you see how look the sign operator? Thats right has other element ```@``` not for email, it means that list is dynamically, it changes over time.
 
-Finally *.cap()* it means the capacity of the array, like *.length* in processing... goes through the array and access the values.
+Finally ```.cap()``` it means the capacity of the array, like ```.length``` in processing... goes through the array and access the values.
 
 Checkout my [artwork](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-2/assignment_2.ck) :notes:
  
