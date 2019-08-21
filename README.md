@@ -230,7 +230,7 @@ Do you remember what I said above with sign operator? It allocate the values on 
 
 Finally *.cap()* it means the capacity of the array, like *.length* in processing... goes through the array and access the values.
 
-Checkout my [artwork](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-2/assignment_2.ck)
+Checkout my [artwork](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-2/assignment_2.ck) :notes:
  
  
 
