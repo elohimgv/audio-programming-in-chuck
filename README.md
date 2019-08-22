@@ -20,6 +20,9 @@ I use Chuck language to program and core features are:
 
 Now I am going to talk about more technical concepts like data types, control structures and waveforms that is a topic of sounds physics but implement in Chuck. 
 
+#### Special object
+One important thing to work with Chuck is ```dac``` object that means digital-to-analog converter, which is connected inside your computer to the output of your card (speakers, headphones, and the like).
+
 #### Data types
 Here we have primitive data types like: floating point, integers, strings, boolean values like in other classic language. The interesting point here is ```time``` and ```dur``` data types; they allow to work wiht **time**. ```time``` is just a point in **time** and ```dur``` is the length of time; for example the duration of my composition. Here there´s special keyword ```now``` to read or init the sequences of pices of coda that must be executed and modify or manipulate the count of time inside of Chuk, because we can show on concole in milliseconds, seconds, minutes, hours etc.
 
@@ -61,6 +64,7 @@ if (true) {
 Pretty the same to other programming languages.
 
 #### Waveforms
+In Chuck this are named Unite Generator (UGen); object the will generate the sound of a waveform.
 Sine wave 
 ```chuck
 SinOsc 
@@ -231,6 +235,10 @@ Do you remember what I said above with sign operator? It allocate the values on 
 Finally ```.cap()``` it means the capacity of the array, like ```.length``` in processing... goes through the array and access the values.
 
 Checkout my [artwork](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-2/assignment_2.ck) :notes:
- 
- 
 
+### Week 3
+The challenge of this week was writing a techno song. I am going to show you what I learn in each session; first, I am going to talk about the sampling period what is? Is our soundfile representation in an array. 
+
+Image...
+
+To build things with it we need to know about...
