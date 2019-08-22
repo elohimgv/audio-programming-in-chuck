@@ -264,7 +264,7 @@ filename => mySound.read;
 1::second => now;
 ```
 Now, a code that implement random with an infinite loop to change over time ```.gain``` and ```.rate```
-```
+```chuck
 // Some code goes here
 
 while (true) {
@@ -275,7 +275,7 @@ while (true) {
 }
 ```
 And how can I reverse a sample?
-```
+```chuck
 // Sound chain
 SndBuf mySound => dac;
 
