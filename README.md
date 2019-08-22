@@ -263,5 +263,39 @@ filename => mySound.read;
 
 1::second => now;
 ```
- 
+Now, a code that implement random with an infinite loop to change over time ```.gain``` and ```.rate```
+```
+// Some code goes here
+
+while (true) {
+    Math.random2f(.2, .8) => mySound.gain; // Set gain
+    Math.random2f(.2, 1.6) => mySound.rate; // Set rate
+    0 => mySound.pos; // Set playhead position
+    100::ms => now;
+}
+```
+And how can I reverse a sample?
+```
+// Sound chain
+SndBuf mySound => dac;
+
+// Look the difference with code above; less code to 
+// connect directory with path file 
+me.dir() + "/audio/snare_01.wav" => string filename; // Create path name as a string
+// open soundfile
+filename => mySound.read;
+// Find number of samples
+// .sample() is like .cap(), to go through and array,
+// but to work with samples
+mySound.samples() => int numSamples;
+
+// infinite loop
+while (true)
+{
+    numSamples => mySound.pos; // Set playhead position
+    // Instead positioning at the beginning, start at the end
+    -1.0 => mySound.rate; // Set rate -negative for reverse 
+    1::second => now; // Advance time
+}
+```
 
