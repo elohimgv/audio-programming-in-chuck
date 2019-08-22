@@ -285,8 +285,8 @@ me.dir() + "/audio/snare_01.wav" => string filename; // Create path name as a st
 // open soundfile
 filename => mySound.read;
 // Find number of samples
-// .sample() is like .cap(), to go through and array,
-// but to work with samples
+// .sample() is like .cap(), to go through  
+// an array, but to work with samples
 mySound.samples() => int numSamples;
 
 // infinite loop
@@ -298,4 +298,29 @@ while (true)
     1::second => now; // Advance time
 }
 ```
+If I want to use more samples, what ca I do to do that? The answer is this:
+```chuck
+// Sound chain
+SndBuf snare => dac;
+
+// Array of strings (paths)
+string snare_samples[3];
+
+// Load array with file paths
+me.dir() + "/audio/snare_01.wav" => snare_samples[0];
+me.dir() + "/audio/snare_02.wav" => snare_samples[1];
+me.dir() + "/audio/snare_03.wav" => snare_samples[2];
+
+// How many samples?
+<<< snare_samples.cap() >>>;
+
+// Infinite loop
+while (true)
+{
+    Math.random2(0, snare_samples.cap() -1) => int which; // 0, 1 or 2
+    snare_samples[which] => snare.read; // Read in the sample
+    250::ms => now; // Advance time
+}
+```
+Remember, we can store different types of data into it. And thats the function of array management samples in this case.   
 
