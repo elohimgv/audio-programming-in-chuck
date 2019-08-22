@@ -237,8 +237,9 @@ Finally ```.cap()``` it means the capacity of the array, like ```.length``` in p
 Checkout my [artwork](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-2/assignment_2.ck) :notes:
 
 ### Week 3
-The challenge of this week was writing a techno song. I am going to show you what I learn in each session; first, I am going to talk about the sampling period what is? Is our soundfile representation in an array. 
+The challenge of this week was writing a techno song. I am going to show you what I learn in each session; first, I am going to talk about sampling and sampling period. *Sampling* is a method of converting an analogue audio signal into a digital signal and *Sampling period*, the time difference between two consecutive samples in a Sound. Is our sound file representation in an array.
 
-Image...
+![Image of SndBuf function](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-3/SndBuf.png)
 
-To build things with it we need to know about...
+To build things with them we need ```SndBuf``` shortened from *sound buffer*, is the built-in ChucK UGen that allows you to
+load sound files.
