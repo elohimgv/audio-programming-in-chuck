@@ -242,4 +242,26 @@ The challenge of this week was writing a techno song. I am going to show you wha
 ![Image of SndBuf function](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-3/SndBuf.png)
 
 To build things with them we need ```SndBuf``` shortened from *sound buffer*, is the built-in ChucK UGen that allows you to
-load sound files.
+load sound files. Let's look an example:
+```chuck
+// Sound chain
+SndBuf mySound => dac; // Is my UGen to load sound files Chuck to dac.
+
+// Allow to connet with sound file directory.
+me.dir() => string path;
+// Sound file path and define the filename
+// Connect sound file directory with sound file path.
+"/audio/snare_01.wav" => string filename; 
+path + filename => filename;
+// Open up soundfile
+filename => mySound.read;
+
+// Simple control 
+.5 => mySound.gain; // Set volume
+0 => mySound.pos; // Sets playhead position
+1 => mySound.rate; // Set rate
+
+1::second => now;
+```
+ 
+
