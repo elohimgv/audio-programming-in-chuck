@@ -324,3 +324,21 @@ while (true)
 ```
 Remember, we can store different types of data into it. And thats the function of array management samples in this case.   
 
+Loading stereo sound files in ChucK is much the same as with mono files, but instead of using ```SndBuf```, you use ```SndBuf2```, The addition of the 2 in the name indicates that the unit generator is stereo, that is, it has two output channels. 
+
+```chuck
+// Sound chain 
+SndBuf2 mySound => dac;
+
+// Read the file into string
+me.dir() + "/audio/stereo_fx_02.wav" => string filename;
+// Open up sounfile
+filename => mySound.read;
+
+// Infinite loop
+while (true) {
+    0 => mySound.pos; // Sets playhead position
+    4::second => now; // Advance time
+}
+```
+
