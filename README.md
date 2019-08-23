@@ -342,14 +342,14 @@ while (true) {
 }
 ```
 Modulo ```%``` is a special type of division; is the remainder of a division.  Let's look an example to learn about it. 
-counter | counter/4 | counter%4 (remanider)
-------- | --------- | ---------------------
-   4    |     1     |           0
-   5    |     1     |           1 
-   6    |     1     |           2
-   7    |     1     |           3
-   8    |     2     |           0
-   9    |     2     |           1
+| counter | counter/4 | counter%4 (remanider) |
+| ------- | --------- | --------------------- |
+|   4     |     1     |           0           |  
+|   5     |     1     |           1           |
+|   6     |     1     |           2           |
+|   7     |     1     |           3           |
+|   8     |     2     |           0           |
+|    9    |     2     |           1           |  
 
 
 An useful tool for build a sequencer...
