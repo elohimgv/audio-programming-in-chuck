@@ -353,6 +353,62 @@ An useful tool for build a sequencer...
 |    8    |     2     |           0           |
 |    9    |     2     |           1           |  
 
+An the last example of the week was this; build a sequencer.
 
+```
+// SEQUENCER
+// Sound chain
+Gain master => dac;
+SndBuf kick => master;
+SndBuf hihat => master;
+SndBuf snare => master;
 
+0.6 => master.gain;
+
+// Load soundfiles into sndbuf
+me.dir() + "/audio/kick_01.wav" => kick.read;
+me.dir() + "/audio/hihat_01.wav" => hihat.read;
+me.dir() + "/audio/snare_01.wav" => snare.read;
+
+// Set all playheads to end so no sound is made
+kick.samples() => kick.pos;
+hihat.samples() => hihat.pos;
+snare.samples() => snare.pos;
+
+// Initialize counter variable
+0 => int counter;
+
+// Infinite loop
+while (true)
+{
+    // Beat goes from 0 to 7 (8 positions)
+    counter % 8 => int beat;
+    
+    // Bas drum on 0 and 4
+    if ((beat == 0) || (beat == 4))
+    {
+        0 => kick.pos;
+    }
+    
+    // Snare drum on 2 and 6
+    if ((beat == 2) || (beat == 6))
+    {
+        0 => snare.pos;
+        Math.random2f(0.6, 1.4) => snare.rate;
+    }
+    
+    0 => hihat.pos;
+    0.2 => hihat.gain;
+    Math.random2f(0.2, 1.8) => hihat.rate;
+    
+    <<< "Counter: ", counter, "Beat: ", beat >>>;
+    // counter + 1 => counter
+    counter++;  
+    250::ms => now;
+}
+```
+
+Look the ```Gain``` and ```master``` objects, it's allow me control the ```.gain``` (volume) on the entire code with just a single variable.
+
+Checkout my [artwork](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-3/assignment_3.ck) :notes:
 
