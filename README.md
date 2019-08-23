@@ -355,7 +355,7 @@ An useful tool for build a sequencer...
 
 An the last example of the week was this; build a sequencer.
 
-```
+```chuck
 // SEQUENCER
 // Sound chain
 Gain master => dac;
