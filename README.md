@@ -412,3 +412,11 @@ Look the ```Gain``` and ```master``` objects, it's allow me control the ```.gain
 
 Checkout my [artwork](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-3/assignment_3.ck) :notes:
 
+### Week 4
+This week was about *functions*. I have been used functions since week 1 :grin: I went ahead :blush:. Ok, what is a functions? It's a small program (block of code) that allow to have code more:
+* Modular
+* Reducible
+* Readable
+
+Anatomy of a function
+
