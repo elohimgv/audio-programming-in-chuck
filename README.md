@@ -419,4 +419,4 @@ This week was about *functions*. I have been used functions since week 1 :grin: 
 * Readable
 
 Anatomy of a function
-
+![Function anatomy](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-4/fun.png)
