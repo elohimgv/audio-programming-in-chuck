@@ -460,5 +460,37 @@ fun int mul(int a, int b) {
 }
 
 // MAIN PROGRAM
-mul(valueOne, valueTwo);
+// Call mul function
+mul(valueOne, valueTwo) => int answer;
+<<< answer >>>;
 ```
+#### Other example of a function
+The present example, how said [Ajay Kapur](https://ajaykapur.com), *is cool to granularized samples*. What is granularized? Are piece of sound that belong to a complete or more complex sound. See the example below. 
+
+```chuck
+// Sound chain
+SndBuf click => dac; 
+
+// Read sound file
+me.dir() + "/audio/stereo_fx_01.wav" => click.read;
+// Set playhead to end of file so no initial sound
+//click.samples => click.pos;
+
+// Function granularize
+fun void granularize(int steps) {
+   // samples/steps => grain.size
+   click.samples() / steps => int grain;
+   // Randomly set gain position
+   Math.random2(0, click.samples() - grain) => click.pos;
+   // Advance time
+   grain::samp => now;
+}
+
+// MAIN PROGRAM
+// Infinite loop
+while (true)
+{
+    granularize(50);
+}
+
+
