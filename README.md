@@ -418,11 +418,11 @@ This week was about *functions*. I have been used functions since week 1 :grin: 
 * Reducible
 * Readable
 
-Anatomy of a function
+#### Anatomy of a function
 ![Function anatomy](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-4/fun.png)
 
 Let's break the code to explain how works. First we have a ```fun``` keyword, then, a data type; is an integer. What is in parentheses is the parameter. Then, need a variable to store the ```result```; add plus 1 to ```x``` parameter Chuck to ```result``` and ```return``` the value of ```result``` variable. Now, we need to call ```addOne()``` function; ```addOne(8)``` has an argument of 8 Chuck to an int data type named answer. Finally print the ```answer``` variable on console: ```9```.
-```
+```chuck
 // Function addOn
 fun int addOne(int x)
 {
@@ -442,4 +442,23 @@ fun int addOne(int x)
 addOne(8) => int answer;
 // Print out answer to addOne()
 <<< answer >>>;
+```
+#### Local and Global variables
+* Global variables are part of the main program and are accessible on the entire code.
+* Local variables are belong to a block of code limited by scope  and not are accessible on the entire code, just to code of block that belong.
+
+```chuck
+// Global variables
+5 => int valueOne;
+4 => int valueTwo;
+
+fun int mul(int a, int b) {
+   // Local variables
+   int result;
+   a*b => result;
+   return result;
+}
+
+// MAIN PROGRAM
+mul(valueOne, valueTwo);
 ```
