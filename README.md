@@ -537,6 +537,36 @@ fun void section(int kickarray[], int clickArray[], float beatTime) {
    }
 }
 ```
-The mojority of the examples presents here, are from the [course](https://www.kadenze.com/courses/introduction-to-real-time-audio-programming-in-chuck/info?signedin=true). If you want to learn more about visit [Kadenze](https://www.kadenze.com) platform.   
+The majority of the examples presents here, are from the [course](https://www.kadenze.com/courses/introduction-to-real-time-audio-programming-in-chuck/info?signedin=true). If you want to learn more about visit [Kadenze](https://www.kadenze.com) platform.  
+
+#### Recursive function
+It's a very advanced topic in computer science, what is a recursive function? Is a function that call itself. 
+``` chuck
+// Sound chain
+SndBuf snare => dac;
+
+// Load sound file
+me.dir() + /audio/snare_02.wav" => snare.read;
+// Set playhead to end so no sound in beginning
+snare.samples() => snare.pos;
+
+// MAIN PROGRAM
+// Call recurive function drumRoll
+drumRoll(100);
+
+// Function 
+fun int drumRoll(int index) {
+   <<<index>>>;
+   if (index >= 1) {
+      // Play sound for duration of index
+      index::ms => now;
+      // Call drumRoll while reducing index
+      return drumRoll(index-1);
+   } else if (index == 0) {
+      return 0;
+   }
+}
+```
+
 
 
