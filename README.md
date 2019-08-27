@@ -541,7 +541,7 @@ The majority of the examples presents here, are from the [course](https://www.ka
 
 #### Recursive function
 It's a very advanced topic in computer science, what is a recursive function? Is a function that call itself. 
-``` chuck
+```chuck
 // Sound chain
 SndBuf snare => dac;
 
@@ -565,6 +565,50 @@ fun int drumRoll(int index) {
    } else if (index == 0) {
       return 0;
    }
+}
+```
+### Chords
+They promote harmony progression in the composition. I don't be a musician and it was a dificult topic to me to learn, because  it was a little about musical theory and the aim of course is an introduction to programming for musician and artists and that's ok. I think that I will profund on chords firstly, then I don't know... music is interesting. Well! without much preamble, here is the code:
+```chuck
+// Sound chain
+TriOsc chord[3];
+Gain master => dac;
+
+// MAIN PROGRAM
+// infinite loop
+while (true)
+{
+    playChord(Math.random2(60, 72), "minor", 250);
+    playChord(Math.random2(60, 72), "major", 500);
+    playChord(Math.random2(60, 72), "minor", 250);
+}
+
+for (0 => int i; i < chord.cap(); i++) {
+   // Use array to chuck unit generator to master
+   1.0/chord.cap() = chord[i].gain;
+   chord[i] => master;
+}
+
+// Function
+fun void playChord(int root, string quality, float length) {
+   // Function will make major or minor chords
+   
+   // root
+   Std.mtof(root) => chord[0].freq;
+   
+   // third
+   if (quality == "major") {
+      Std.mtof(root + 4) => chord[1].freq;
+   } else if (quality == "minor") {
+      Std.mtof(root + 3) => chord[1].freq;
+   } else {
+      <<<"Must specify 'major' or 'minor'">>>;
+   }
+   
+   // fifth
+    Std.mtof(root + 7) => chord[2].freq;
+    
+    length::ms => now;
 }
 ```
 
