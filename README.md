@@ -96,7 +96,6 @@ Std.mtof(float value) // Converts MIDI note number to frequency (Hz) - output fl
 Std.ftom(float value) // Converts frequency (Hz) to MIDI note number space - output float
 ```
 Others:
-
 ```chuck
 Std.abs(int value) // Returns absolute value of integer number - output integer
 
@@ -120,6 +119,7 @@ Std.itoa(int value) // Converts integer (int) to ascii (string) - output string
 
 Std.ftoa(float value) // Converts floating point value (float) to ascii (string)
 ```
+
 #### Random numbers
 An interesting tool for have variations (different values) in our compositions is random function. That provide volumen up and down or note change among others. For this we have Math library.
 ```chuck
@@ -135,6 +135,7 @@ Every time I run my program I have different values with random, what happen if 
 ```chuck
 Math.srandom() // Ensure tha sequence of random numbers would be exactly the same across different executions of the same program.
 ```
+
 #### More utility functions
 ```chuck
 Math.hypot(float x, float y) // Computes the ecuclidean distance of the orthogonal vectors (x, 0) and (0, y) - output float
@@ -167,6 +168,7 @@ Math.max(float x, float y) // Choose greater of two values - output float
 
 Math.nextpow2(float x) // Computes the integral smallest power of 2 greater the the value of x - output int
 ```
+
 #### Audio panning
 Pannig give me the opportunity to work with audio channel. For example on computer we have two speakers: one left and one right. How can manipulate it? well, Chuck counts with distinct way to do that. One way is:
 ```chuck
@@ -174,7 +176,6 @@ SinOsc s => dac.left;
 SinOsc t => dac.right;
 ```
 This ensure sound in both sides. At this point we can control when, what, how the side is mute, on, off, amplitude, note is performed. But if we want more channels, (e.g. multi channels devices).
-
 ```chuck
 SqrOsc s => dac.chan(0);
 SqrOsc t => dac.chan(1);
@@ -182,7 +183,6 @@ SqrOsc u => dac.chan(2);
 SqrOsc v => dac.chan(3);
 ```
 The third way is similar to ```dac.left``` and ```dac.right```, but with the keyword ```Pan2```. Here is an example:
-
 ```chuck
 // Sound chain
 Noise n => Pan2 p => dac;
@@ -325,7 +325,6 @@ while (true)
 Remember, we can store different types of data into it. And thats the function of array management samples in this case.   
 
 Loading stereo sound files in ChucK is much the same as with mono files, but instead of using ```SndBuf```, you use ```SndBuf2```, The addition of the 2 in the name indicates that the unit generator is stereo, that is, it has two output channels. 
-
 ```chuck
 // Sound chain 
 SndBuf2 mySound => dac;
@@ -354,7 +353,6 @@ An useful tool for build a sequencer...
 |    9    |     2     |           1           |  
 
 An the last example of the week was this; build a sequencer.
-
 ```chuck
 // SEQUENCER
 // Sound chain
@@ -407,7 +405,6 @@ while (true)
     250::ms => now;
 }
 ```
-
 Look the ```Gain``` and ```master``` objects, it's allow me control the ```.gain``` (volume) on the entire code with just a single variable.
 
 Checkout my [artwork](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-3/assignment_3.ck) :notes:
@@ -443,10 +440,10 @@ addOne(8) => int answer;
 // Print out answer to addOne()
 <<< answer >>>;
 ```
+
 #### Local and Global variables
 * Global variables are part of the main program and are accessible on the entire code.
 * Local variables are belong to a block of code limited by scope  and not are accessible on the entire code, just to code of block that belong.
-
 ```chuck
 // Global variables
 5 => int valueOne;
@@ -466,7 +463,6 @@ mul(valueOne, valueTwo) => int answer;
 ```
 #### Other example of a function
 The present example, how said [Ajay Kapur](https://ajaykapur.com), *is cool to granularized samples*. What is granularized? Are piece of sound that belong to a complete or more complex sound. See the example below. 
-
 ```chuck
 // Sound chain
 SndBuf click => dac; 
@@ -492,5 +488,55 @@ while (true)
 {
     granularize(50);
 }
+```
+#### Musical forms
+Our compositions has to have expressiveness, to do that, we will examine the next example.  
+```chuck
+// Sound chain
+SndBuf click => dac;
+SndBuf kick => dac;
+
+// Open sound files
+me.dir() + "/audio/kick_01.wav" => kick.read;
+me.dir() + "/audio/snare_03.wav" => click.read;
+
+// Take away playback at initialization
+kick.samples() => kick.pos;
+click.samples() => click.pos;
+
+// Global variables
+[1, 0, 0, 0, 1, 0, 0, 0] @=> int kick_ptrn_1[];
+[0, 0, 1, 0, 0, 0, 1, 0] @=> int kick_ptrn_2[];
+[1, 0, 1, 0, 1, 0, 1, 0] @=> int click_ptrn_1[];
+[1, 1, 1, 1, 1, 1, 1, 1] @=> int click_ptrn_2[];
+
+// MAIN PROGRAM
+// Infinite loop
+while (true)
+{
+   // Procedural :: ABA form
+   section(kick_ptrn_1, click_ptrn_1, .2); 
+   section(kick_ptrn_2, click_ptrn_2, .2);
+   section(kick_ptrn_1, click_ptrn_1, .4); 
+}
+
+// Function
+fun void section(int kickarray[], int clickArray[], float beatTime) {
+   // Sequencer for bass drum and snare drum beats 
+   for (0 => int i; i < kickArray.cap(); i++) {
+      // if 1 in array then play kick
+      if (kickArray[i] == 1) {
+         0 => kick.pos;
+      }
+      
+      // if 1 in array then play click
+      if (kickArray[i] == 1) {
+         0 => click.pos;
+      }
+      beattime::second => now;
+   }
+}
+```
+The mojority of the examples presents here, are from the [course](https://www.kadenze.com/courses/introduction-to-real-time-audio-programming-in-chuck/info?signedin=true). If you want to learn more about visit [Kadenze](https://www.kadenze.com) platform.   
 
 
