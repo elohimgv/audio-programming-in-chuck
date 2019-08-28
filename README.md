@@ -476,7 +476,7 @@ me.dir() + "/audio/stereo_fx_01.wav" => click.read;
 fun void granularize(int steps) {
    // samples/steps => grain.size
    click.samples() / steps => int grain;
-   // Randomly set gain position
+   // Randomly set grain position
    Math.random2(0, click.samples() - grain) => click.pos;
    // Advance time
    grain::samp => now;
@@ -510,16 +510,6 @@ click.samples() => click.pos;
 [1, 0, 1, 0, 1, 0, 1, 0] @=> int click_ptrn_1[];
 [1, 1, 1, 1, 1, 1, 1, 1] @=> int click_ptrn_2[];
 
-// MAIN PROGRAM
-// Infinite loop
-while (true)
-{
-   // Procedural :: ABA form
-   section(kick_ptrn_1, click_ptrn_1, .2); 
-   section(kick_ptrn_2, click_ptrn_2, .2);
-   section(kick_ptrn_1, click_ptrn_1, .4); 
-}
-
 // Function
 fun void section(int kickarray[], int clickArray[], float beatTime) {
    // Sequencer for bass drum and snare drum beats 
@@ -530,11 +520,21 @@ fun void section(int kickarray[], int clickArray[], float beatTime) {
       }
       
       // if 1 in array then play click
-      if (kickArray[i] == 1) {
+      if (clickArray[i] == 1) {
          0 => click.pos;
       }
       beattime::second => now;
    }
+}
+
+// MAIN PROGRAM
+// Infinite loop
+while (true)
+{
+   // Procedural :: ABA form
+   section(kick_ptrn_1, click_ptrn_1, .2); 
+   section(kick_ptrn_2, click_ptrn_2, .2);
+   section(kick_ptrn_1, click_ptrn_1, .4); 
 }
 ```
 The majority of the examples presents here, are from the [course](https://www.kadenze.com/courses/introduction-to-real-time-audio-programming-in-chuck/info?signedin=true). If you want to learn more about visit [Kadenze](https://www.kadenze.com) platform.  
@@ -550,10 +550,6 @@ me.dir() + /audio/snare_02.wav" => snare.read;
 // Set playhead to end so no sound in beginning
 snare.samples() => snare.pos;
 
-// MAIN PROGRAM
-// Call recurive function drumRoll
-drumRoll(100);
-
 // Function 
 fun int drumRoll(int index) {
    <<<index>>>;
@@ -566,6 +562,10 @@ fun int drumRoll(int index) {
       return 0;
    }
 }
+
+// MAIN PROGRAM
+// Call recurive function drumRoll
+drumRoll(100);
 ```
 ### Chords
 They promote harmony progression in the composition. I don't be a musician and it was a dificult topic to me to learn, because  it was a little about musical theory and the aim of course is an introduction to programming for musician and artists and that's ok. I think that I will profund on chords firstly, then I don't know... music is interesting. Well! without much preamble, here is the code:
@@ -574,18 +574,9 @@ They promote harmony progression in the composition. I don't be a musician and i
 TriOsc chord[3];
 Gain master => dac;
 
-// MAIN PROGRAM
-// infinite loop
-while (true)
-{
-    playChord(Math.random2(60, 72), "minor", 250);
-    playChord(Math.random2(60, 72), "major", 500);
-    playChord(Math.random2(60, 72), "minor", 250);
-}
-
 for (0 => int i; i < chord.cap(); i++) {
    // Use array to chuck unit generator to master
-   1.0/chord.cap() = chord[i].gain;
+   1.0/chord.cap() => chord[i].gain;
    chord[i] => master;
 }
 
@@ -609,6 +600,15 @@ fun void playChord(int root, string quality, float length) {
     Std.mtof(root + 7) => chord[2].freq;
     
     length::ms => now;
+}
+
+// MAIN PROGRAM
+// infinite loop
+while (true)
+{
+    playChord(Math.random2(60, 72), "minor", 250);
+    playChord(Math.random2(60, 72), "major", 500);
+    playChord(Math.random2(60, 72), "minor", 250);
 }
 ```
 
