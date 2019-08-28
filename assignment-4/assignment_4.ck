@@ -6,13 +6,10 @@ SndBuf hihat => master;
 SndBuf kick => master;
 SndBuf snare => master;
 SndBuf2 stereo => master;
-SawOsc saw => Gain masterSaw => dac.chan(0);
-SinOsc sin => Gain masterSin => dac.chan(1);
+SawOsc sawChord[3];
 
 // Global variables
-0.5 => master.gain;
-0.0 => masterSaw.gain;
-0.0 => masterSin.gain;
+.5 => master.gain;
 
 [1,0,1,0,1,0,1,0,1] @=> int clap_ptrn_1[];
 [0,1,0,1,0,1,0,0,1] @=> int clap_ptrn_2[];
@@ -24,12 +21,6 @@ SinOsc sin => Gain masterSin => dac.chan(1);
 [0,0,1,1,1,1,0,1,0] @=> int kick_ptrn_2[];
 [0,1,1,0,0,0,1,1,0] @=> int snare_ptrn_1[];
 [1,1,0,1,0,1,0,1,1] @=> int snare_ptrn_2[];
-
-[0,1,0,1,0,1,0,1,0] @=> int sawOsc_ptrn_1[];
-[1,0,1,0,1,0,1,0,1] @=> int sawOsc_ptrn_2[];
-[0,1,0,1,0,1,0,1,0] @=> int sinOsc_ptrn_1[];
-[1,0,1,0,1,0,1,0,1] @=> int sinOsc_ptrn_2[];
-
 
 // Load soundfiles into sndbuf and sndbuf2
 me.dir() + "/audio/clap_01.wav" => clap.read;
@@ -46,15 +37,6 @@ hihat.samples() => hihat.pos;
 kick.samples() => kick.pos;
 snare.samples() => snare.pos;
 stereo.samples() => stereo.pos;
-
-// MAIN PROGRAM
-while (true) {
-    //granularized(110);
-    // Procedural :: ABA form
-    expressiveness(clap_ptrn_1, click_ptrn_2, hihat_ptrn_1, kick_ptrn_2, snare_ptrn_1, .3);
-    //recursive();
-    //playChord();
-}
 
 // Functions...
 fun void granularized(int steps) {
@@ -97,10 +79,42 @@ fun void expressiveness(int clapArray[], int clickArray[], int hihatArray[], int
     }
 }
 
+for (0 => int i; i < sawChord.cap(); i++) {
+   // Use array to chuck unit generator to master
+   1.0/sawChord.cap() => sawChord[i].gain;
+   sawChord[i] => master;
+}
+
+fun void playChord(int root, string quality, float length) {
+    // Function will make major or minor chords
+    // Root
+    Std.mtof(root) => sawChord[0].freq;
+    
+    // third 
+    if (quality == "major") {
+        Std.mtof(root + 4) => sawChord[1].freq;
+    } else if (quality == "minor") {
+        Std.mtof(root + 3) => sawChord[1].freq;
+    } else {
+        <<< "Must specify 'major' or 'minor'" >>>;
+    }
+    
+    // fifth
+    Std.mtof(root +7) => sawChord[2].freq;
+    // Advance time    
+    length::ms => now;
+}
+
 fun int recursive() { // Name: "recursive()" is for a while
     
 }
 
-fun void playChord() {
-    
+// MAIN PROGRAM
+while (true) {
+    //granularized(110);
+    // Procedural :: ABA form
+    //expressiveness(clap_ptrn_1, click_ptrn_2, hihat_ptrn_1, kick_ptrn_2, snare_ptrn_1, .3);
+    playChord(Math.random2(60, 72), "minor", 250);
+    //recursive();
 }
+
