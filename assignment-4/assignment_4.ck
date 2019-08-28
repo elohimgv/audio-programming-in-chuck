@@ -6,10 +6,16 @@ SndBuf hihat => master;
 SndBuf kick => master;
 SndBuf snare => master;
 SndBuf2 stereo => master;
-SawOsc sawChord[3];
+SawOsc chord_1 => Gain masterChord_1 => dac.left;
+SawOsc chord_2 => Gain masterChord_2 => dac.right;
+SawOsc chord_3 => Gain masterChord_3 => dac.left;
+
 
 // Global variables
 .5 => master.gain;
+.0 => masterChord_1.gain;
+.0 => masterChord_2.gain;
+.0 => masterChord_3.gain;
 
 [1,0,1,0,1,0,1,0,1] @=> int clap_ptrn_1[];
 [0,1,0,1,0,1,0,0,1] @=> int clap_ptrn_2[];
@@ -79,42 +85,49 @@ fun void expressiveness(int clapArray[], int clickArray[], int hihatArray[], int
     }
 }
 
-for (0 => int i; i < sawChord.cap(); i++) {
-   // Use array to chuck unit generator to master
-   1.0/sawChord.cap() => sawChord[i].gain;
-   sawChord[i] => master;
-}
-
 fun void playChord(int root, string quality, float length) {
+    // Use array to chuck unit generator to master
+    1.0/3 => chord_1.gain;
+    chord_1 => dac.left;
+    1.0/3 => chord_2.gain;
+    chord_2 => dac.right;
+    1.0/3 => chord_3.gain;
+    chord_3 => dac.left;
     // Function will make major or minor chords
     // Root
-    Std.mtof(root) => sawChord[0].freq;
+    Std.mtof(root) => chord_1.freq;
     
     // third 
     if (quality == "major") {
-        Std.mtof(root + 4) => sawChord[1].freq;
+        Std.mtof(root + 4) => chord_2.freq;
     } else if (quality == "minor") {
-        Std.mtof(root + 3) => sawChord[1].freq;
+        Std.mtof(root + 3) => chord_2.freq;
     } else {
         <<< "Must specify 'major' or 'minor'" >>>;
     }
     
     // fifth
-    Std.mtof(root +7) => sawChord[2].freq;
+    Std.mtof(root +7) => chord_3.freq;
     // Advance time    
     length::ms => now;
 }
 
-fun int recursive() { // Name: "recursive()" is for a while
-    
+fun int playMusic(int reps) { 
+    if (reps == 1) {
+        // when reach here, function has a way to end
+        return 1;
+    } else {
+        //granularized(110);
+        // Procedural :: ABA form
+        //expressiveness(clap_ptrn_1, click_ptrn_2, hihat_ptrn_1, kick_ptrn_2, snare_ptrn_1, .3);
+        playChord(Math.random2(60, 72), "major", 250);
+        
+        // recursive function calls itseld
+        return playMusic(reps - 1);
+    }
 }
 
 // MAIN PROGRAM
-while (true) {
-    //granularized(110);
-    // Procedural :: ABA form
-    //expressiveness(clap_ptrn_1, click_ptrn_2, hihat_ptrn_1, kick_ptrn_2, snare_ptrn_1, .3);
-    playChord(Math.random2(60, 72), "minor", 250);
-    //recursive();
-}
+playMusic(10);
+
 
