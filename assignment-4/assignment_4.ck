@@ -46,6 +46,7 @@ stereo.samples() => stereo.pos;
 
 // Functions...
 fun void granularized(int steps) {
+    1 => master.gain;
     // samples/steps => grain.size
     stereo.samples() / steps => int grain;
     // Randomly set grain position
@@ -112,22 +113,45 @@ fun void playChord(int root, string quality, float length) {
     length::ms => now;
 }
 
-fun int playMusic(int reps) { 
+fun int cicle(int reps) { 
     if (reps == 1) {
         // when reach here, function has a way to end
         return 1;
     } else {
-        //granularized(110);
-        // Procedural :: ABA form
-        //expressiveness(clap_ptrn_1, click_ptrn_2, hihat_ptrn_1, kick_ptrn_2, snare_ptrn_1, .3);
-        playChord(Math.random2(60, 72), "major", 250);
-        
+        sequencer();
         // recursive function calls itseld
-        return playMusic(reps - 1);
+        return cicle(reps - 1);
     }
 }
 
+fun void sequencer() {
+    // Initialize counter variable
+    0 => int counter;
+        
+    // loop
+    while (counter < 8) {
+        counter%8 => int beat;
+        if (beat == 0 || beat == 3 || beat == 7) {
+            granularized(110);
+        }
+            
+        if (beat == 1 || beat == 6) {
+            playChord(Math.random2(60, 72), "major", 250);
+        }
+            
+        if (beat == 2 || beat == 5) {
+            playChord(Math.random2(60, 72), "major", 250);
+            // Procedural :: ABA form
+            expressiveness(clap_ptrn_2, click_ptrn_1, hihat_ptrn_2, kick_ptrn_1, snare_ptrn_2, .2);
+        }
+            
+        if (beat == 4) {
+            expressiveness(clap_ptrn_1, click_ptrn_2, hihat_ptrn_1, kick_ptrn_2, snare_ptrn_1, .3);
+        }
+   }
+}
+
 // MAIN PROGRAM
-playMusic(10);
+cicle(10);
 
 
