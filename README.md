@@ -611,6 +611,9 @@ while (true)
     playChord(Math.random2(60, 72), "minor", 250);
 }
 ```
+Uf! it was difficult assignment, not for learn the new concepts and techniques. But to organice the expressiveness of my artwork. It not sound good... but whatever; I think that the most important to me, is what I learned a lot of my erros in code: writing code, running code and evaluating results and again. How said I am not a musician, but I start to love music and doing music with Chuck. I know better the core concpets of working with Chuck. *I am not search to be the best programmer in Chuck or the best musician or the worst, I just want to be fine with my self*; that's my main point and that's the main learn of the week.
+
+Checkout my [artwork](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-4/assignment_4.ck) :notes:
 
 
 
