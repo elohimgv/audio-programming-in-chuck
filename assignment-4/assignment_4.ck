@@ -6,16 +6,17 @@ SndBuf hihat => master;
 SndBuf kick => master;
 SndBuf snare => master;
 SndBuf2 stereo => master;
-SawOsc chord_1 => Gain masterChord_1 => dac.left;
-SawOsc chord_2 => Gain masterChord_2 => dac.right;
-SawOsc chord_3 => Gain masterChord_3 => dac.left;
+TriOsc chord_1 => Gain masterChord_1 => dac.left;
+TriOsc chord_2 => Gain masterChord_2 => dac.right;
+TriOsc chord_3 => Gain masterChord_3 => dac.left;
 
-
-// Global variables
+// GLOBAL VARIABLES //
 .5 => master.gain;
 .0 => masterChord_1.gain;
 .0 => masterChord_2.gain;
 .0 => masterChord_3.gain;
+// Variable for track duration
+now + 30::second => time duration;
 
 [1,0,1,0,1,0,1,0,1] @=> int clap_ptrn_1[];
 [0,1,0,1,0,1,0,0,1] @=> int clap_ptrn_2[];
@@ -46,13 +47,18 @@ stereo.samples() => stereo.pos;
 
 // Functions...
 fun void granularized(int steps) {
-    1 => master.gain;
-    // samples/steps => grain.size
-    stereo.samples() / steps => int grain;
-    // Randomly set grain position
-    Math.random2(0, stereo.samples()) => stereo.pos;
-    // Advance time 
-    grain::samp => now;
+    0 => int count;
+    while (count < 10) {
+        1 => master.gain;
+        // samples/steps => grain.size
+        stereo.samples() / steps => int grain;
+        // Randomly set grain position
+        Math.random2(0, stereo.samples()) => stereo.pos;
+        // Advance time 
+        grain::samp => now;
+        // Counter
+        count++;
+    }  
 }
 
 fun void expressiveness(int clapArray[], int clickArray[], int hihatArray[], int kickArray[], int snareArray[], float beatTime) {
@@ -87,17 +93,18 @@ fun void expressiveness(int clapArray[], int clickArray[], int hihatArray[], int
 }
 
 fun void playChord(int root, string quality, float length) {
-    // Use array to chuck unit generator to master
-    1.0/3 => chord_1.gain;
+    // chuck unit generator to master
+    1.0/5 => chord_1.gain;
     chord_1 => dac.left;
-    1.0/3 => chord_2.gain;
+    1.0/5 => chord_2.gain;
     chord_2 => dac.right;
-    1.0/3 => chord_3.gain;
+    1.0/5 => chord_3.gain;
     chord_3 => dac.left;
+    
     // Function will make major or minor chords
     // Root
     Std.mtof(root) => chord_1.freq;
-    
+        
     // third 
     if (quality == "major") {
         Std.mtof(root + 4) => chord_2.freq;
@@ -106,52 +113,67 @@ fun void playChord(int root, string quality, float length) {
     } else {
         <<< "Must specify 'major' or 'minor'" >>>;
     }
-    
+        
     // fifth
     Std.mtof(root +7) => chord_3.freq;
     // Advance time    
     length::ms => now;
+    
+    if (true) {
+        // disconect to master
+        .0 => chord_1.gain;
+        chord_1 => dac.left;
+        .0 => chord_2.gain;
+        chord_2 => dac.right;
+        .0 => chord_3.gain;
+        chord_3 => dac.left;
+    }
 }
 
-fun int cicle(int reps) { 
+fun int playMusic(int reps) { 
+    
     if (reps == 1) {
         // when reach here, function has a way to end
         return 1;
     } else {
+        granularized(110);
+
         sequencer();
+
+        // Procedural :: ABA form
+        expressiveness(clap_ptrn_1, click_ptrn_2, hihat_ptrn_1, kick_ptrn_2, snare_ptrn_1, .3);
+        expressiveness(clap_ptrn_2, click_ptrn_1, hihat_ptrn_2, kick_ptrn_1, snare_ptrn_2, .2);
+
+        granularized(110);
+
+        sequencer();
+
+        // Procedural :: ABA form
+        expressiveness(clap_ptrn_1, click_ptrn_2, hihat_ptrn_1, kick_ptrn_2, snare_ptrn_1, .3);
+        expressiveness(clap_ptrn_2, click_ptrn_1, hihat_ptrn_2, kick_ptrn_1, snare_ptrn_2, .2);
+        
         // recursive function calls itseld
-        return cicle(reps - 1);
+        return playMusic(reps - 1);
     }
 }
 
 fun void sequencer() {
     // Initialize counter variable
-    0 => int counter;
-        
+    0 => int counter;  
     // loop
-    while (counter < 8) {
-        counter%8 => int beat;
-        if (beat == 0 || beat == 3 || beat == 7) {
-            granularized(110);
-        }
-            
-        if (beat == 1 || beat == 6) {
-            playChord(Math.random2(60, 72), "major", 250);
-        }
-            
-        if (beat == 2 || beat == 5) {
-            playChord(Math.random2(60, 72), "major", 250);
-            // Procedural :: ABA form
-            expressiveness(clap_ptrn_2, click_ptrn_1, hihat_ptrn_2, kick_ptrn_1, snare_ptrn_2, .2);
-        }
-            
-        if (beat == 4) {
-            expressiveness(clap_ptrn_1, click_ptrn_2, hihat_ptrn_1, kick_ptrn_2, snare_ptrn_1, .3);
-        }
+    while (counter < 4) {
+        playChord(Math.random2(60, 80), "major", 250);
+        playChord(Math.random2(60, 80), "minor", 260);
+        counter++;
    }
 }
 
 // MAIN PROGRAM
-cicle(10);
+playMusic(3);
+<<< "time left:", (duration - now) / second >>>;
+
+
+
+
 
 
