@@ -638,6 +638,14 @@ adc => Gain g => dac;
 *Strictly speaking, you don’t need the Gain UGen between the adc and the dac, but you
 should always avoid connecting the adc to the dac directly. ([Programming from Musicians and Digital Artists book](https://www.amazon.com/Programming-Musicians-Digital-Artists-Creating/dp/1617291706))* 
 
+#### One more oscillator: ```PulseOsc```
+Remember in the beginning we used ```SinOsc``` to code our first Chuck program *hello sine!*. Now let me introduce ```PulseOsc``` special oscillator to make great electronic dance-type sounds and music. It's similar to ```SqrOsc``` with slightly differences. 
+
+*You can also control the fraction of each period that’s high versus low (this is called the pulse width, or the duty cycle). You can set or vary the duty cycle of PulseOsc anywhere between 0.0 and 1.0, to create varied spectral sounds (a small duty cycle yields a very bright spectrum; 0.5 yields less bright). ([Programming from Musicians and Digital Artists book](https://www.amazon.com/Programming-Musicians-Digital-Artists-Creating/dp/1617291706))*
+![Duty cicle](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-5/duty-cicle.png)
+
+
+
 
 
 
