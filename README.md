@@ -615,5 +615,29 @@ Uf! it was difficult assignment, not for learn the new concepts and techniques. 
 
 Checkout my [artwork](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-4/assignment_4.ck) :notes:
 
+### Week 5
+Firstly, I am going to talk about Unit Generators, what are they? Are objects into Chuck, that allow to create sound like ```SinOsc```, ```TriOsc```. For example: ```SinOsc s => dac;``` here, we are chucking ```SinOsc``` object to ```dac```. Remember, it means *digital audio converter*. 
+
+#### Special Ugens: dac, adc, and blackhole
+* ```dac```: It allow you to connect other UGens to the outside world of your speakers or headphones via your sound hardware. It goes from inside to outside. 
+* ```adc```: It allow you to connect from a microphone, for example and processing the information. It goes from outside to inside. 
+* ```ablackhole```: Different to ```dac``` it not generate any sound. 
+
+For what do I need a  ```ablackhole``` for? if not produce any sound. Sometimes just we need know values and not hear any type of sound.
+```dac```, ```adc```, and ```blackhole``` are don't need to be instantiated, because are always there and there’s only one of them.
+
+When we need inputs to have some outputs, maybe  think on this: ```adc => dac; // don't do this!``` instead use this:
+```chuck
+//connect audio input to audio output through Gain UG
+adc => Gain g => dac;
+//let it run for 10 seconds
+10.0 :: second => now;
+```
+*CAUTION! CAUTION! CAUTION! Be extremely careful before you execute this code, making sure that there won’t be an ear-splitting feedback loop (as can happen when sound from your speakers gets back into your microphone). Plug in headphones, or turn your speaker volume way down before hooking the adc to the dac (running this code). ([Programming from Musicians and Digital Artists book](https://www.amazon.com/Programming-Musicians-Digital-Artists-Creating/dp/1617291706))*
+
+*Strictly speaking, you don’t need the Gain UGen between the adc and the dac, but you
+should always avoid connecting the adc to the dac directly. ([Programming from Musicians and Digital Artists book](https://www.amazon.com/Programming-Musicians-Digital-Artists-Creating/dp/1617291706))* 
+
+
 
 
