@@ -642,7 +642,52 @@ should always avoid connecting the adc to the dac directly. ([Programming from M
 Remember in the beginning we used ```SinOsc``` to code our first Chuck program *hello sine!*. Now let me introduce ```PulseOsc``` special oscillator to make great electronic dance-type sounds and music. It's similar to ```SqrOsc``` with slightly differences. 
 
 *You can also control the fraction of each period that’s high versus low (this is called the pulse width, or the duty cycle). You can set or vary the duty cycle of PulseOsc anywhere between 0.0 and 1.0, to create varied spectral sounds (a small duty cycle yields a very bright spectrum; 0.5 yields less bright). ([Programming from Musicians and Digital Artists book](https://www.amazon.com/Programming-Musicians-Digital-Artists-Creating/dp/1617291706))*
+
 ![Duty cicle](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-5/duty-cicle.png)
+
+#### Envelop Unit Generator
+Envelope is a way to make sound similar to occur in nature. Until now, we have been make sound with switch ```0``` or ```1```, sound or silence through the .gain method, but in nature is distinct. Begin with a slow impulse, louder and then decay; is continuous. *When you blow into a clarinet or trumpet, or start bowing a violin, or begin to sing, the notes don’t switch on instantly. When you stop blowing, bowing, or singing, you don’t hear a click because the sound stopped instantly. ([Programming from Musicians and Digital Artists book](https://www.amazon.com/Programming-Musicians-Digital-Artists-Creating/dp/1617291706))*
+
+Basic envelope
+```
+// Sound chain
+SqrOsc => clar => Envelope env => dac; 
+
+// Changes ramp time
+1.0::second => now;
+
+// Turns envelope on
+1 => env.keyOn;
+
+// Adavnce time
+2.0::second = > now;
+
+// Turns envelope off
+1 => env.keyOff;
+
+// Advance time
+2.0::second => now;
+```
+
+More advance envelope
+```
+// Sound chain 
+SqrOsc clar => ADSR => dac;
+(0.5::second, 0.1::second, 0.1, 2.0::second) => env.set;
+
+// Turns envelope on
+1 => env.keyOn;
+// Advance time 
+2.0::second => now;
+
+// Turns envelope off
+1 => env.keyOff;
+// Advance time
+2.0::second => now;
+```
+
+![Attack, Decay, Sustain and Realase](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-5/ADSR.png)
+
 
 
 
