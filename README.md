@@ -720,6 +720,39 @@ Impulse imp => ResonZ filt => dac;
 2.0::second => now;
 ```
 
+#### Delay-based audio effects
+Some interesting audio effetcs and there is more in built-in Chuck...
+```chuck
+// Sound chain
+adc => JCRev rev => dac; // We can use also PRCRev, NRev 
+// dry/wet mix
+0.1 => rev.mix;
+
+while (true)
+{
+    1.0::second => now;
+}
+
+// Sound chain
+adc => Chorus chor => dac;
+0.05 => chor.modDepth;
+2.0 => chor.modFreq;
+
+while (true)
+{
+    1.0::second => now;
+}
+
+// Sound chain
+adc => PitShift pit => dac;
+1.2 => pit.shift;
+
+while (true)
+{
+    1.0::second => now;
+}
+```
+
 
 
 
