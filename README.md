@@ -689,7 +689,7 @@ SqrOsc clar => ADSR => dac;
 ![Attack, Decay, Sustain and Realase](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-5/ADSR.png)
 
 #### Frequency Modulation Synthesis
-Is a physical modeling, where you model an compute the physcis of wave as they vibrate and propagate. Like a violin or clarinet. 
+Is a physical modeling, where you model and compute the physcis of wave as they vibrate and propagate. Like a violin or clarinet. 
 ```chuck
 // Modeling a violin through waveforms
 SinOsc vib => SawOsc viol => ADSR env => dac;
@@ -704,6 +704,20 @@ SinOsc vib => SawOsc viol => ADSR env => dac;
 
 1 => env.keyOff // Turns envelope off
 2::second => now;
+```
+
+#### Filters
+They operate on signal, frequencies emphasize or deemphasize sounds. Look at the example below. *Ugen ```Resonz``` which creates a single resonance (higher gain at one selectable frequency) on any signal passed through it. ```Resonz``` responds to ```.freq```, which sets the resonance frequency, and ```.Q```, which stands for “quality factor” and determines the amount of emphasis at the resonant frequency. ([Programming from Musicians and Digital Artists book](https://www.amazon.com/Programming-Musicians-Digital-Artists-Creating/dp/1617291706))*
+```chuck
+// Sound chain
+Impulse imp => ResonZ filt => dac;
+800.0 => filt.freq;
+400 => filt.Q;
+
+// Generate 1 for one sample
+200.0 => imp.next 
+
+2.0::second => now;
 ```
 
 
