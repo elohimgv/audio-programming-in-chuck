@@ -649,7 +649,7 @@ Remember in the beginning we used ```SinOsc``` to code our first Chuck program *
 Envelope is a way to make sound similar to occur in nature. Until now, we have been make sound with switch ```0``` or ```1```, sound or silence through the .gain method, but in nature is distinct. Begin with a slow impulse, louder and then decay; is continuous. *When you blow into a clarinet or trumpet, or start bowing a violin, or begin to sing, the notes don’t switch on instantly. When you stop blowing, bowing, or singing, you don’t hear a click because the sound stopped instantly. ([Programming from Musicians and Digital Artists book](https://www.amazon.com/Programming-Musicians-Digital-Artists-Creating/dp/1617291706))*
 
 Basic envelope
-```
+```chuck
 // Sound chain
 SqrOsc => clar => Envelope env => dac; 
 
@@ -670,7 +670,7 @@ SqrOsc => clar => Envelope env => dac;
 ```
 
 More advance envelope
-```
+```chuck
 // Sound chain 
 SqrOsc clar => ADSR => dac;
 (0.5::second, 0.1::second, 0.1, 2.0::second) => env.set;
@@ -687,6 +687,24 @@ SqrOsc clar => ADSR => dac;
 ```
 
 ![Attack, Decay, Sustain and Realase](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-5/ADSR.png)
+
+#### Frequency Modulation Synthesis
+Is a physical modeling, where you model an compute the physcis of wave as they vibrate and propagate. Like a violin or clarinet. 
+```chuck
+// Modeling a violin through waveforms
+SinOsc vib => SawOsc viol => ADSR env => dac;
+(0.5::second, 0.1::second, 0.6, 0.5::second) => env.set;
+660.0 => viol.freq;  // Change pitch and hear what happen
+1100 => vib.freq; // Vibrato frequency 
+100 => vib.gain;
+2 => viol.sync; // Set sync mode to FM (2)
+
+1 => env.kayOn; // Turns envelope on 
+2::second => now;
+
+1 => env.keyOff // Turns envelope off
+2::second => now;
+```
 
 
 
