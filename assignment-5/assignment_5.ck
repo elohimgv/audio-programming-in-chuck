@@ -1,9 +1,17 @@
 // Sound chain envelope
 SawOsc mod => SawOsc car => ADSR env_one => dac;
-
 (0.3::second, 0.15::second, 0.1, 0.2::second) => env_one.set;
 // set sync mode to FM (2)
 2 => car.sync;
+
+// Sound chain rope
+Noise nois => ADSR env_two => Delay d => dac; 
+// Feedback loop
+d => d;
+// Attenuation
+0.99 => d.gain;
+(0.005::second, 0.001::second, 0.0, 0.001::second) => env_two.set;
+
 
 fun void envelopeOne() {
     while (true) {
@@ -25,5 +33,17 @@ fun void envelopeOne() {
     }
 }
 
+fun void envelopeTwo() {
+    while (true) {
+        Math.random2f(0.001, 0.004)::second => d.delay;
+        // Turns envelpe on
+        1 => env_two.keyOn;
+        //Advance time
+        Math.random2f(0.2, .5)::second => now;
+    } 
+}
+
 // MAIN POGRAM
-envelopeOne();
+//envelopeOne();
+envelopeTwo();
+
