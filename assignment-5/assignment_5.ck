@@ -12,6 +12,13 @@ d => d;
 0.99 => d.gain;
 (0.005::second, 0.001::second, 0.0, 0.001::second) => env_two.set;
 
+/* Sound chain sample */
+SndBuf heartBeat => dac;
+// Connect directory with path file
+// and open sound file 
+me.dir() + "/audio/heartbeat.wav" => heartBeat.read;
+// Set playhead to end so no sound is made
+heartBeat.samples() => heartBeat.pos;
 
 fun void envelopeOne() {
     while (true) {
@@ -41,6 +48,13 @@ fun void envelopeTwo() {
         //Advance time
         Math.random2f(0.2, .5)::second => now;
     } 
+}
+
+fun void heart() {
+    while (true) {
+        0 => heartBeat.pos;
+        1000::ms => now;
+    }
 }
 
 // MAIN POGRAM
