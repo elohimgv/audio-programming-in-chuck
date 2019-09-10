@@ -57,15 +57,36 @@ fun void expressiveness(int onAndOffArray[]) {
     }
 }
 
-fun void heart() {
-    while (true) {
+fun void heartIn() {
+    0.0 => float volume;
+    0 => int counter;
+    while (counter < 10) {
         0 => heartBeat.pos;
+        volume => heartBeat.gain;
         1000::ms => now;
+        // Fade in
+        0.1 +=> volume;
+        counter++;
+    }
+}
+
+fun void heartOut() {
+    1.0 => float volume;
+    0 => int counter;
+    while (counter < 10) {
+        0 => heartBeat.pos;
+        volume => heartBeat.gain;
+        1000::ms => now;
+        // Fade in
+        0.1 -=> volume;
+        counter++;
     }
 }
 
 // MAIN POGRAM
 //envelopeOne();
-//envelopeTwo();
-heart();
+heartIn();
+expressiveness(envelopeTwo_ptrn_1);
+expressiveness(envelopeTwo_ptrn_2);
+heartOut();
 
