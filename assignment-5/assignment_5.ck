@@ -1,11 +1,12 @@
+Gain master => dac;
 // Sound chain envelope
-SawOsc mod => SawOsc car => ADSR env_one => dac;
+SawOsc mod => SawOsc car => ADSR env_one => master;
 (0.3::second, 0.15::second, 0.1, 0.2::second) => env_one.set;
 // set sync mode to FM (2)
 2 => car.sync;
 
 // Sound chain rope
-Noise nois => ADSR env_two => Delay d => dac; 
+Noise nois => ADSR env_two => Delay d => master; 
 // Feedback loop
 d => d;
 // Attenuation
@@ -13,7 +14,7 @@ d => d;
 (0.005::second, 0.001::second, 0.0, 0.001::second) => env_two.set;
 
 /* Sound chain sample */
-SndBuf heartBeat => dac;
+SndBuf heartBeat => master;
 // Connect directory with path file
 // and open sound file 
 me.dir() + "/audio/heartbeat.wav" => heartBeat.read;
