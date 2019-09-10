@@ -77,7 +77,7 @@ fun void heartOut() {
         0 => heartBeat.pos;
         volume => heartBeat.gain;
         1000::ms => now;
-        // Fade in
+        // Fade out
         0.1 -=> volume;
         counter++;
     }
