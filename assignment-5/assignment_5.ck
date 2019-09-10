@@ -21,6 +21,10 @@ me.dir() + "/audio/heartbeat.wav" => heartBeat.read;
 // Set playhead to end so no sound is made
 heartBeat.samples() => heartBeat.pos;
 
+// Global variables 
+[1,1,0,0,0,0,1,1,0,1,1,0] @=> int envelopeTwo_ptrn_1[];
+[0,1,0,1,0,1,0,1,0] @=> int envelopeTwo_ptrn_2[];
+
 fun void envelopeOne() {
     while (true) {
         Math.random2f(100.0, 1000.0) => car.freq;
@@ -41,14 +45,16 @@ fun void envelopeOne() {
     }
 }
 
-fun void envelopeTwo() {
-    while (true) {
-        Math.random2f(0.001, 0.004)::second => d.delay;
+fun void expressiveness(int onAndOffArray[]) {
+    for (0 => int i; i < onAndOffArray.cap(); i++) {
+        if (onAndOffArray[i] == 1) {
+            Math.random2f(0.001, 0.004)::second => d.delay;
+        }
         // Turns envelpe on
         1 => env_two.keyOn;
         //Advance time
-        Math.random2f(0.2, .5)::second => now;
-    } 
+        Math.random2f(0.4, .8)::second => now;
+    }
 }
 
 fun void heart() {
