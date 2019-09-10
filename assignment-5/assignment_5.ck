@@ -1,11 +1,12 @@
 Gain master => dac;
-// Sound chain envelope
+/* Sound chain envelope */
 SawOsc mod => SawOsc car => ADSR env_one => master;
+
 (0.3::second, 0.15::second, 0.1, 0.2::second) => env_one.set;
 // set sync mode to FM (2)
 2 => car.sync;
 
-// Sound chain rope
+/* Sound chain rope */
 Noise nois => ADSR env_two => Delay d => master; 
 // Feedback loop
 d => d;
@@ -21,12 +22,16 @@ me.dir() + "/audio/heartbeat.wav" => heartBeat.read;
 // Set playhead to end so no sound is made
 heartBeat.samples() => heartBeat.pos;
 
-// Global variables 
+// Global variables
 [1,1,0,0,0,0,1,1,0,1,1,0] @=> int envelopeTwo_ptrn_1[];
 [0,1,0,1,0,1,0,1,0] @=> int envelopeTwo_ptrn_2[];
+// Variable for track duration
+now + 30::second => time duration;
 
+// Functions
 fun void envelopeOne() {
-    while (true) {
+    0 => int counter;
+    while (counter < 2) {
         Math.random2f(100.0, 1000.0) => car.freq;
         <<<"Car: ",car.freq()>>>;
         Math.random2f(100.0, 1000.0) => mod.freq;
@@ -42,6 +47,8 @@ fun void envelopeOne() {
         1 => env_one.keyOff;
         //Advance time
         1.0::second => now;
+        
+        counter++;
     }
 }
 
@@ -84,9 +91,12 @@ fun void heartOut() {
 }
 
 // MAIN POGRAM
-//envelopeOne();
 heartIn();
 expressiveness(envelopeTwo_ptrn_1);
+envelopeOne();
 expressiveness(envelopeTwo_ptrn_2);
 heartOut();
+<<< "time left:", (duration - now) / second >>>;
+
+
 
