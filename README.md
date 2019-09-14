@@ -805,6 +805,8 @@ while(true) {
 
 ```spork ~``` means: execute the function in parallel. 
 Finally we have an example more advanced. It implement parent shred and childs shred. ```shred``` means a single sequence of logic code (code snippet). A ```shred``` is created by ```spork```ing functions. In Chuck we spork shred. We can spork any number of shred running at the same time. That's how you can get concurrency; ```shred``` is a separate process and ```spork``` is the action of create a new  ```shred```.
+![Parent shred and childs shraed](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-6/shred.png)
+
  ```chuck
 60 => Std.mtof => one.freq;
 64 => Std.mtof => two.freq;
