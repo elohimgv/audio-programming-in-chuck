@@ -753,6 +753,92 @@ while (true)
 }
 ```
 
+### Week 6
+An advanced topic in computer science was concurrency. It´s running many independent pieces of logic at the same time. Let's look an example. 
+```chuck
+fun void foo() {
+   while(true) {
+      <<<"foo!", "">>>;
+      250::ms => now;
+   }
+}
+```
+A while loop into a function ```foo()``` repeating forever and print 'foo!' every 250 milliseconds. 
+```chuck
+while(true) {
+   <<<"BARRRRRR!!", "">>>;
+   1::second => now;
+}
+```
+Infinite loop print 'BARRRRRR!!' every 1 second. 
+
+If we connect the two pieces of code we have:
+```chuck
+fun void foo() {
+   while(true) {
+      <<<"foo!", "">>>;
+      250::ms => now;
+   }
+}
+
+while(true) {
+   <<<"BARRRRRR!!", "">>>;
+   1::second => now;
+}
+```
+But, the issue is, that the second piece of code doesn´t execute because the first one is an ifinite loop... running forever. Until the first piece is finished it cannot continue. What can we do here? Of course the answer is concurrency (multi-thread) :relaxed:. 
+```chuck
+fun void foo() {
+   while(true) {
+      <<<"foo!", "">>>;
+      250::ms => now;
+   }
+}
+
+spork ~ foo();
+
+while(true) {
+   <<<"BARRRRRR!!", "">>>;
+   1::second => now;
+}
+```
+
+```spork ~``` means: execute the function in parallel. 
+Finally we have an example more advanced. It implement parent shred and childs shred. ```shred``` means a single sequence of logic code (code snippet). A ```shred``` is created by ```spork```ing functions. In Chuck we spork shred. We can spork any number of shred running at the same time. That's how you can get concurrency; ```shred``` is a separate process and ```spork``` is the action of create a new  ```shred```.
+ ```chuck
+60 => Std.mtof => one.freq;
+64 => Std.mtof => two.freq;
+
+fun void foo() {
+    while(true) {
+        // Note!
+        1 => one.strike;
+        <<<"foo!", "">>>;
+        250::ms => now;
+   }
+}
+
+fun void bar() {
+    while(true) {
+        <<<"BARRRRRR!!", "">>>;
+        // Note!
+        1 => two.strike;
+        1::second => now;
+    }
+}
+
+// Spork 
+spork ~ foo();
+spork ~ bar();
+
+// Infinite time loop
+//  (To keep parent shred alive, in order for children to alive)
+while(true) {
+    1::second => now;
+}
+ ```
+
+
 
 
 
