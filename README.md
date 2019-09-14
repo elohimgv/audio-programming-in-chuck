@@ -839,10 +839,21 @@ while(true) {
     1::second => now;
 }
  ```
-
-
-
-
+ 
+ #### Machine commands
+ Things get more interesting. Machine commands are, obviously how the word say, commands that allow to build Chuck architecture (progrmas) more complex. They are the base to add, remove and replace Chuck files to play a song.
+ ```chuck
+Machine.add()
+```
+![machine add command](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-6/machine_add.png)
+```chuck
+Machine.remove()
+```
+![machine remove command](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-6/machine_remove.png)
+```chuck
+Machine.rplace()
+```
+![machine replace command](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-6/machine_replace.png)
 
 
 
