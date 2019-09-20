@@ -1,65 +1,65 @@
 // GLOBAL VARIABLES //
 // Sound network
-TriOsc triangleWaveOne;
-TriOsc triangleWaveTwo;
+SinOsc sineWave;
+TriOsc triangleWave;
 // Set volume
-triangleWaveOne.gain;
-triangleWaveTwo.gain;
+sineWave.gain;
+triangleWave.gain;
 // Array of notes
 [64,83,13,55,59,77,79,81,78] @=> int notes[];
 
 // Functions
-fun void playWaveOne() {
+fun void playSineWave() {
     // Sound network
-    TriOsc triangleWaveOne => dac;
-    .5 => triangleWaveOne.gain; // Turn on the volume
+    SinOsc sineWave => dac;
+    .5 => sineWave.gain; // Turn on the volume
     // Goes forward
     for (0 => int i; i < notes.cap(); i++) {
         <<<notes[i]>>>;
-        Math.mtof(notes[i]) => triangleWaveOne.freq;
+        Math.mtof(notes[i]) => sineWave.freq;
         190::ms => now;
     }
         
-    0 => triangleWaveOne.gain; // Turn off the volume
+    0 => sineWave.gain; // Turn off the volume
 }
 
-fun void playWaveTwo() {
-    TriOsc triangleWaveTwo => dac;
-    .5 => triangleWaveTwo.gain; // Turn on the volume
+fun void playTriangleWave() {
+    TriOsc triangleWave => dac;
+    .5 => triangleWave.gain; // Turn on the volume
     // Goes backward
     for (notes.cap() => int i; i > 0; 1-=>i) {
         <<<notes[i-1]>>>;
-        Math.mtof(notes[i-1]) => triangleWaveTwo.freq;
+        Math.mtof(notes[i-1]) => triangleWave.freq;
         190::ms => now;
        }
         
-    0 => triangleWaveTwo.gain; // Turn off the volume
+    0 => triangleWave.gain; // Turn off the volume
 }
 
-fun void sequencerOne() {
-    TriOsc triangleWaveOne => dac;
-    .5 => triangleWaveOne.gain;
+fun void sequencerSineWave() {
+    SinOsc sineWave => dac;
+    .5 => sineWave.gain;
     0 => int counter;
     while (counter < 10) {
         counter%10 => int beat;
         // index 0-3
         if (beat == 0 || beat == 2) { 
-            Math.mtof(notes[3]) => triangleWaveOne.freq;
+            Math.mtof(notes[3]) => sineWave.freq;
             190::ms => now;
         }
         
         if (beat == 1 || beat == 3) {
-            Math.mtof(notes[2]) => triangleWaveOne.freq;
+            Math.mtof(notes[2]) => sineWave.freq;
             190::ms => now;
         }
         
         if (beat == 2 || beat == 4) {
-            Math.mtof(notes[1]) => triangleWaveOne.freq;
+            Math.mtof(notes[1]) => sineWave.freq;
             190::ms => now;
         }
         
         if (beat == 3 || beat == 5) {
-            Math.mtof(notes[0]) => triangleWaveOne.freq;
+            Math.mtof(notes[0]) => sineWave.freq;
             190::ms => now;
         }
         
@@ -67,38 +67,38 @@ fun void sequencerOne() {
         if (beat == 4 || beat == 6) { 
             
             if (beat == 6) {
-                Math.mtof(notes[5]) => triangleWaveOne.freq;
+                Math.mtof(notes[5]) => sineWave.freq;
                 190::ms => now;
             } else {
-                Math.mtof(notes[4]) => triangleWaveOne.freq;
+                Math.mtof(notes[4]) => sineWave.freq;
                 190::ms => now;
             }
             
         }
         
         if (beat == 5 || beat == 7) {
-            Math.mtof(notes[6]) => triangleWaveOne.freq;
+            Math.mtof(notes[6]) => sineWave.freq;
             190::ms => now;
         }
         
         if (beat == 6 || beat == 8) {
-            Math.mtof(notes[7]) => triangleWaveOne.freq;
+            Math.mtof(notes[7]) => sineWave.freq;
             190::ms => now;
         }
         
         if (beat == 7 || beat == 9) {
-            Math.mtof(notes[8]) => triangleWaveOne.freq;
+            Math.mtof(notes[8]) => sineWave.freq;
             190::ms => now;
         } 
         counter++;
     }   
-    0 => triangleWaveOne.gain;    
+    0 => sineWave.gain;    
 }
 
 // MAIN PROGRAM
-sequencerOne();
-playWaveOne();
-playWaveTwo();
+sequencerSineWave();
+playSineWave();
+playTriangleWave();
 
 
 
