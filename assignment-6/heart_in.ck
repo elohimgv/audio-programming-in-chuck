@@ -20,9 +20,8 @@ fun void heartIn() {
     }
 }
 
-
-
 // MAIN PROGRAM 
+
 // Play the sound
 0 => heartBeat.pos;
 // Advanced time
