@@ -1,173 +1,151 @@
-// GLOBAL VARIABLES //
-// Sound network
-SinOsc sineWave;
-TriOsc triangleWave;
-// Set volume
-sineWave.gain;
-triangleWave.gain;
-// Array of notes
-[64,83,13,55,59,77,79,81,78] @=> int notes[];
+// TECHNO SONG
 
-// Functions
-fun void playSineWave() {
-    // Sound network
-    SinOsc sineWave => dac;
-    .5 => sineWave.gain; // Turn on the volume
-    // Goes forward
-    for (0 => int i; i < notes.cap(); i++) {
-        <<<notes[i]>>>;
-        Math.mtof(notes[i]) => sineWave.freq;
-        190::ms => now;
+// Author: Elohim Guevara
+
+// Sound chain 
+Gain master => Pan2 panning => dac;
+SndBuf clap => master;
+SndBuf cowbell => master;
+SndBuf hihat => master;
+SndBuf kick => master;
+SndBuf snare => master;
+SndBuf2 stereo => master;
+
+
+// Variable for track duration
+now + 30::second => time duration;
+// Set gain
+.4 => master.gain;
+// Declare pan position value
+float panPosition;
+
+// Load soundfiles into sndbuf and sndbuf2
+me.dir() + "/audio/clap_01.wav" => clap.read;
+me.dir() + "/audio/cowbell_01.wav" => cowbell.read;
+me.dir() + "/audio/hihat_03.wav" => hihat.read;
+me.dir() + "/audio/kick_04.wav" => kick.read;
+me.dir() + "/audio/snare_02.wav" => snare.read;
+me.dir() + "/audio/stereo_fx_04.wav" => stereo.read;
+
+// Set all playheads to end so no sound is made
+clap.samples() => clap.pos;
+clap.samples() => int numSamplesClap;
+cowbell.samples() => cowbell.pos;
+cowbell.samples() => int numSamplesCowbell;
+hihat.samples() => hihat.pos;
+kick.samples() => kick.pos;
+snare.samples() => snare.pos;
+stereo.samples() => stereo.pos;
+
+// MAIN PROGRAM
+if (true) {
+    for (0 => int i; i < 6; i++) {
+        sequencer();
     }
-        
-    0 => sineWave.gain; // Turn off the volume
 }
 
-fun void sequencerSineWave() {
-    SinOsc sineWave => dac;
-    .5 => sineWave.gain;
+// Function sequencer
+fun void sequencer() {
     0 => int counter;
-    while (counter < 10) {
-        counter%10 => int beat;
-        // index 0-3
-        if (beat == 0 || beat == 2) { 
-            Math.mtof(notes[3]) => sineWave.freq;
-            190::ms => now;
-        }
-        
-        if (beat == 1 || beat == 3) {
-            Math.mtof(notes[2]) => sineWave.freq;
-            190::ms => now;
-        }
-        
-        if (beat == 2 || beat == 4) {
-            Math.mtof(notes[1]) => sineWave.freq;
-            190::ms => now;
-        }
-        
-        if (beat == 3 || beat == 5) {
-            Math.mtof(notes[0]) => sineWave.freq;
-            190::ms => now;
-        }
-        
-        // index 4-8
-        if (beat == 4 || beat == 6) { 
+    while (counter < 12) {
+        counter%12 => int beat;
+        if (beat == 0 || beat == 11) { // Block 1
             
-            if (beat == 6) {
-                Math.mtof(notes[5]) => sineWave.freq;
-                190::ms => now;
-            } else {
-                Math.mtof(notes[4]) => sineWave.freq;
-                190::ms => now;
+            0 => clap.pos;
+            .5 => clap.rate;
+            // Initialize pan position value to right channel
+            1.0 => float panPosition;
+            panPosition => panning.pan; 
+            
+            if (beat == 11) {    
+                // Set playhead position
+                numSamplesClap => clap.pos;
+                // Set rate -negative for reverse 
+                -1.0 => clap.rate;
             }
+            // Advance time
+            250::ms => now;
+        }
+        
+        if (beat == 1 || beat == 10) { // Block 2
             
-        }
-        
-        if (beat == 5 || beat == 7) {
-            Math.mtof(notes[6]) => sineWave.freq;
-            190::ms => now;
-        }
-        
-        if (beat == 6 || beat == 8) {
-            Math.mtof(notes[7]) => sineWave.freq;
-            190::ms => now;
-        }
-        
-        if (beat == 7 || beat == 9) {
-            Math.mtof(notes[8]) => sineWave.freq;
-            190::ms => now;
-        } 
-        counter++;
-    }   
-    0 => sineWave.gain;    
-}
-
-fun void playTriangleWave() {
-    TriOsc triangleWave => dac;
-    .5 => triangleWave.gain; // Turn on the volume
-    // Goes backward
-    for (notes.cap() => int i; i > 0; 1-=>i) {
-        <<<notes[i-1]>>>;
-        Math.mtof(notes[i-1]) => triangleWave.freq;
-        190::ms => now;
-       }
-        
-    0 => triangleWave.gain; // Turn off the volume
-}
-
-fun void sequencerTriangleWave() {
-    TriOsc triangleWave => dac;
-    .5 => triangleWave.gain;
-    0 => int counter;
-    while (counter < 10) {
-        counter%10 => int beat;
-        // index 0-3
-        if (beat == 0 || beat == 2) { 
-            Math.mtof(notes[3]) => triangleWave.freq;
-            190::ms => now;
-        }
-        
-        if (beat == 1 || beat == 3) {
-            Math.mtof(notes[2]) => triangleWave.freq;
-            190::ms => now;
-        }
-        
-        if (beat == 2 || beat == 4) {
-            Math.mtof(notes[1]) => triangleWave.freq;
-            190::ms => now;
-        }
-        
-        if (beat == 3 || beat == 5) {
-            Math.mtof(notes[0]) => triangleWave.freq;
-            190::ms => now;
-        }
-        
-        // index 4-8
-        if (beat == 4 || beat == 6) { 
+            0 => hihat.pos;
+            .5 => hihat.rate;
             
-            if (beat == 6) {
-                Math.mtof(notes[5]) => triangleWave.freq;
-                190::ms => now;
-            } else {
-                Math.mtof(notes[4]) => triangleWave.freq;
-                190::ms => now;
+            0 => kick.pos;
+            .6 => kick.rate;
+            
+            0 => snare.pos;
+            .6 => snare.rate;
+            panPosition => panning.pan;
+            // Advance time
+            250::ms => now;
+        }
+        
+        if (beat == 2 || beat == 9) { // Block 3
+            
+            0 => stereo.pos;
+            1.7 => stereo.rate;
+            if (beat == 9) {
+                Math.random2f(.5, 1.2) => stereo.rate;
             }
+            // Advance time
+            250::ms => now;
+        }
+        
+        if (beat == 3 || beat == 8) { // Block 4
             
+            0 => kick.pos;
+            .6 => kick.rate;
+            // Advance time
+            1000::ms => now;
+            
+            0 => cowbell.pos;
+            .3 => cowbell.rate;
+            // Advance time
+            250::ms => now;
         }
         
-        if (beat == 5 || beat == 7) {
-            Math.mtof(notes[6]) => triangleWave.freq;
-            190::ms => now;
+        if (beat == 4 || beat == 7) { // Block 5
+            
+            0 => snare.pos;
+            .6 => snare.rate;
+            if (beat == 4) {
+                Math.random2f(.8, 1.2) => snare.rate;
+            }
+            // Advance time
+            250::ms => now;
         }
         
-        if (beat == 6 || beat == 8) {
-            Math.mtof(notes[7]) => triangleWave.freq;
-            190::ms => now;
+        if (beat == 5 || beat == 6) { // Block 6
+            
+            0 => cowbell.pos;
+            .3 => cowbell.rate;
+            // Initialize pan position value to left channel
+            -1.0 => float panPosition;
+            panPosition => panning.pan; 
+            
+            if (beat == 6) {    
+                // Set playhead position
+                numSamplesCowbell => clap.pos;
+                // Set rate -negative for reverse 
+                -1.0 => cowbell.rate;
+            }
+            // Advance time
+            250::ms => now;
         }
-        
-        if (beat == 7 || beat == 9) {
-            Math.mtof(notes[8]) => triangleWave.freq;
-            190::ms => now;
-        } 
+        <<< "Counter: ", counter, "Beat: ", beat >>>;
         counter++;
-    }   
-    0 => triangleWave.gain;    
+    }
+    <<< "time left:", (duration - now) / second >>>;
 }
 
 // MAIN PROGRAM
-sequencerSineWave();
-playSineWave();
-playTriangleWave();
-sequencerTriangleWave();
-
-
-
-
-
-
-
-
-
+if (true) {
+    for (0 => int i; i < 6; i++) {
+        sequencer();
+    }
+}
 
 
 
