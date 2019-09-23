@@ -160,8 +160,8 @@ sequencerTriangleWave();
 playSineWave();
 playTriangleWave();
 
-spork ~ sequencerSineWave();
-spork ~ sequencerTriangleWave();
+//spork ~ sequencerSineWave();
+//spork ~ sequencerTriangleWave();
 
 // To keep parent shred alive, in order for children to alive
 while(true) 1::second => now;
