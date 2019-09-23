@@ -2,7 +2,7 @@
 Sitar sitar => dac;
 
 0 => int counter;
-while (counter < 12) {
+while (counter < 20) {
     // Sitar control parameters
     Math.random2(156, 347) => sitar.freq; 
     sitar.noteOn(1);
