@@ -855,6 +855,16 @@ Machine.rplace()
 ```
 ![machine replace command](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-6/machine_replace.png)
 
+### Week 7
+This week was about OOP (object oriented programming), popularized in the 90s by C++, objective-c and Java. We have been using this property through UGens (objects built in Chuck). Objects are type of data that encapsulate behaviours; it are better and bigger than functions. For example, a flute, a piano are objects that contain instructions to be palying :notes: (think in therms of programing :computer: not literally). 
+
+Objects can be public and private:
+![Objects public and private](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-7/private%20and%20public.png)
+![Flute object](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-7/flute%20model.png)
+
+Knowing the above, we can make our own objects :musical_keyboard:.
+
+
 
 
 
