@@ -864,6 +864,54 @@ Objects can be public and private:
 
 Knowing the above, we can make our own objects :musical_keyboard:.
 
+#### Classes
+A class is the structure that form my data set to form an object. For example we have a class *float* and then the name of the object. 
+![Class and objects](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-7/class%20and%20objects.png)
+
+A class can has many instances that become in objects :relaxed:
+![Instances](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-7/instances.png)
+
+Also have data variables that belong to object. In other programming language it are known as fields. 
+![Memeber variables](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-7/member%20variables.png)
+
+Finally... ! methods. In OOP (Object Oriented Programming) a function is known as method. 
+![Methods](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-7/methods.png)
+
+```chuck
+class TestData {
+   // Memeber variables 
+   1 => int myInt;
+   0 => int myFrac;
+   
+   // Memeber functions that adds the data
+   fun float sum() {
+      return(myInt + myFrac);
+   }
+}
+
+// Instance of TestData and one object named d
+TestData d; 
+
+<<<d.myInt, d.myFrac, d.sum()>>>;
+
+// advance time
+1::second => now;
+
+// change the data
+3 => d.myInt;
+0.14159 => d.myFrac;
+
+<<<d.myInt, d.myFrac, d.sum()>>>;
+```
+
+
+
+
+
+
+
+
+
 
 
 
