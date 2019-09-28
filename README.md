@@ -859,22 +859,28 @@ Machine.rplace()
 This week was about OOP (object oriented programming), popularized in the 90s by C++, objective-c and Java. We have been using this property through UGens (objects built in Chuck). Objects are type of data that encapsulate behaviours; it are better and bigger than functions. For example, a flute, a piano are objects that contain instructions to be palying :notes: (think in therms of programing :computer: not literally). 
 
 Objects can be public and private:
+
 ![Objects public and private](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-7/private%20and%20public.png)
+
 ![Flute object](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-7/flute%20model.png)
 
 Knowing the above, we can make our own objects :musical_keyboard:.
 
 #### Classes
-A class is the structure that form my data set to form an object. For example we have a class *float* and then the name of the object. 
+A class is the structure that form my data set to form an object. For example we have a class *float* and then the name of the object.
+
 ![Class and objects](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-7/class%20and%20objects.png)
 
 A class can has many instances that become in objects :relaxed:
+
 ![Instances](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-7/instances.png)
 
 Also have data variables that belong to object. In other programming language it are known as fields. 
+
 ![Memeber variables](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-7/member%20variables.png)
 
 Finally... ! methods. In OOP (Object Oriented Programming) a function is known as method. 
+
 ![Methods](https://github.com/elohimgv/audio-programming-in-chuck/blob/master/assignment-7/methods.png)
 
 ```chuck
@@ -903,8 +909,61 @@ TestData d;
 
 <<<d.myInt, d.myFrac, d.sum()>>>;
 ```
+#### Overloading
+Overloading it allows make functions with the same name... (obviously in the context of OOP), but doing different things depending of type and number of arguments coming in.
 
+```chuck
+class Simple {
+   // Sound chain
+   Impulse imp => ResonZ filt => dac;
+   
+   // Some default settings 
+   100.0 => filt.Q => filt.gain;
+   1000.0 => filt.freq;
+   
+   fun void freq(float f) {
+      f => filt.freq; 
+   } 
+   
+   fun void setQ(float Q) {
+      Q => filt.Q => filt.gain;
+   }
+   
+   fun void setGain(float g) {
+      g => imp.gain;
+   }
+   
+   fun void noteOn(float volume) {
+      volume => imp.next;
+   }
+   
+   // Two ways of setting pitch (overloading)
+   // one by float frequency
+   fun float pitch(float freq) {
+      return (freq => filt.frea);
+   }
+   
+   // another way to set pitch by MIDI note number
+   fun float pitch(int noteNum) {
+      return (Std.mtof(noteNum) => filt.freq); 
+   }
+}
 
+// Object
+Simple s;
+
+while(true) {
+   // MIDI note number pitch
+   s.pitch(60);
+   1=> s.noteOn;
+   1::second => now;
+   
+   // pitch as float frequency
+   s.pitch(440.0);
+   1 => s.noteOn;
+   1::second => now; 
+}
+```
 
 
 
