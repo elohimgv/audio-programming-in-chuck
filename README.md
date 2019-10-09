@@ -909,6 +909,7 @@ TestData d;
 
 <<<d.myInt, d.myFrac, d.sum()>>>;
 ```
+
 #### Overloading
 Overloading it allows make functions with the same name... (obviously in the context of OOP), but doing different things depending of type and number of arguments coming in.
 
@@ -964,6 +965,10 @@ while(true) {
    1::second => now; 
 }
 ```
+
+#### Public class vs Private class
+A private class means that only belong to a particular type of project and into it only can act. The counterpart it can act in different projects (classes) from outside; that's why it's public class, because works through different classes. Private, just act into the same project where is create.
+
 
 
 
